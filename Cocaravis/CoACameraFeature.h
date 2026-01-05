@@ -68,7 +68,7 @@ typedef struct _ArvGcFeatureNode ArvGcFeatureNode;
 
 
 #pragma mark *************   CoAStringFeature
-//  ARV_TYPE_GC_STRING node type
+//  ARV_TYPE_GC_STRING / ARV_TYPE_GC_STRING_NODE / ARV_TYPE_GC_STRING_REG_NODE
 @interface CoAStringFeature : CoACameraFeature
 @property (readonly) NSString   *currentValue;
 

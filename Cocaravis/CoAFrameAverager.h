@@ -9,14 +9,14 @@
 #import <Foundation/Foundation.h>
 
 /*
-    CoAFrameAverager class, accumulate multi frames to suppress random noises on a image
+    CoAFrameAverager class, accumulate multiple frames to suppress random noise in an image.
     to use the class, call
     - (void)attachFrameAverager;
     method  of CoAStream and
     frameAverager property.
  
     CoAFrameAverager object accumulates over number of 'averagingCount' frames by sliding window method for temporal direction
-    and no degredation of resolution for spacial directions
+    and no degradation of resolution for spatial directions.
     'lastImageBuffer' property holds averaged frame.
     'lastFrameMaximum' property holds maximum pixel value of averaged frame
     'flushAverage' method restarts accumulation.

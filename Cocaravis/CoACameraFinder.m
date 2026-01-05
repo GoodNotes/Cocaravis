@@ -23,7 +23,6 @@ static NSArray          *interfaces = nil;
 @property (readwrite) NSString      *vendor;
 @property (readwrite) NSString      *address;
 @property (readwrite) NSString      *protocol;
-//@property (readwrite) NSString      *interfaceId;
 @end
 @implementation CoADeviceSignature
 
@@ -37,7 +36,6 @@ static NSArray          *interfaces = nil;
     [str appendFormat:@"\tVender %@", self.vendor];
     [str appendFormat:@"\tAddress %@", self.address];
     [str appendFormat:@"\tProtocol %@", self.protocol];
-    //[str appendFormat:@"\tInterface ID %@", self.interfaceId];
     return [NSString stringWithString:str];
 }
 @end
@@ -115,7 +113,6 @@ static NSArray          *interfaces = nil;
             cprop.vendor = [self stringFromCStringNullChecking:arv_get_device_vendor(i)];
             cprop.address = [self stringFromCStringNullChecking:arv_get_device_address(i)];
             cprop.protocol = [self stringFromCStringNullChecking:arv_get_device_protocol(i)];
-            //cprop.interfaceId = [self stringFromCStringNullChecking:arv_get_interface_id(i)];
             [temp addObject:cprop];
         }
         _cameraNameList = [NSArray arrayWithArray:temp];
@@ -129,5 +126,4 @@ static NSArray          *interfaces = nil;
 }
 
 @end
-
 

@@ -32,16 +32,12 @@ static void controlLostCallback(ArvGvDevice *gvDevice, void *data);
     self = [super init];
     _camera = camera;
     _deviceId = camera.signature.deviceId;
-    //const char  *device_id = [_deviceId cStringUsingEncoding:NSUTF8StringEncoding];
-    //arv_open_device(device_id);
     _arvDevice = arv_camera_get_device(camera.arvCameraObject);
     if (_arvDevice == NULL) {
         self = nil;
         return self;
     }
 
-    //ArvDeviceStatus status = arv_device_get_status(_arvDevice);
-    //printf("device status %d\n", status);ARV_DEVICE_STATUS_SUCCESS
     _featureCategory = [[CoAFeatureCategory alloc] initWithDevice:self];
     _categorizedFeatures = _featureCategory.categorizedFeatures;
     
@@ -78,4 +74,3 @@ static void controlLostCallback(ArvGvDevice *gvDevice, void *data)
     CoADevice   *selfptr = (__bridge CoADevice *)data;
     [selfptr controlLost];
 }
-

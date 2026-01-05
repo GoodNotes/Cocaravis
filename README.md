@@ -1,13 +1,13 @@
-#Cocaravis, Objective-C wrapper of aravis
+# Cocaravis, Objective-C wrapper of Aravis
 
-Cocaravis is a framework on macOS and a wrapper of  [aravis](https://github.com/AravisProject/aravis) library. Aravis is a Gen$<$i$>$Cam camera library via. GigE and USB3 interfaces  for linux. Of course, aravis can also work on macOS but aravis library needs
+Cocaravis is a framework on macOS and a wrapper of the [Aravis](https://github.com/AravisProject/aravis) library. Aravis is a Gen$<$i$>$Cam camera library via GigE and USB3 interfaces for Linux. Of course, Aravis can also work on macOS but the Aravis library needs
 
 1. some dependent libraries originated on linux and absent on current macOS.
 2. knowledge of GObject, GMainLoop and GThread etc. that a typical macOS programmer doesn't know much about.
 
-Cocaravis framework provides Objetive-C API to use aravis library easily without knowledge about GNOME clichés.
+Cocaravis framework provides an Objective-C API to use Aravis easily without knowledge about GNOME clichés.
 
-Cocaravis is currently based on aravis-0.6.3 and glib, gettext and other libraries from [homebrew](https://github.com/Homebrew) and some libraries existing originally in /usr/lib on macOS. Cocaravis includes them as embedded dynamic library resources except built-in libraries in standard directories of macOS.
+Cocaravis is currently based on aravis-0.8 and glib, gettext and other libraries from [homebrew](https://github.com/Homebrew). Cocaravis includes required dylibs as embedded framework resources, except for libraries already provided by macOS.
 
 # Object configuration
 
@@ -42,14 +42,14 @@ CoAFrameAverager class is planned for illuminance measurement performing simple 
 
 1. install dependent libraries (listed bellow. Also in Frameworks on Project Navigator panel of Xcode). Homebrew is easy to do.
 
-2. build aravis by autotools procedure (configure/make) for aravis.0.6.3.  For other version of aravis, refer the github repository.
+2. build aravis by autotools procedure (configure/make) for aravis 0.8.x, or install via Homebrew.
 
 3. build Cocaravis on Xcode.
 
 
-### depended libraries
+### dependent libraries (Homebrew)
 
-- libaravis-0.6.dylib
+- libaravis-0.8.0.dylib
 
 - libusb-1.0.dylib
 
@@ -65,17 +65,13 @@ CoAFrameAverager class is planned for illuminance measurement performing simple 
 
 - libintl.dylib
 
-- libpcre.dylib
-
-- libffi.dylib
-
 Other indispensable libraries i.e., libxml2, libz, etc. are equipped to macOS and may be linked dynamically.
 
 ### how to build aravis on macOS
 
-There are several ways to install stable aravis-0.6 onto macOS 10.14.
+There are several ways to install aravis on macOS.
 
-####via. homebrew directly
+#### via Homebrew directly
 
 ```
 brew install aravis
@@ -83,40 +79,38 @@ brew install aravis
 
 But a *LARGE NUMBER of packages* related to arv-viewer are installed with the direct installation.
 
-#### install manually using homebrew
+#### install manually using Homebrew
 
 following the aravis document (from now on, bash is assumed for shell),
 
-1. donwload tarball from stable release site and expand
+1. download a tarball from the stable release site and expand
 
    ```sh
-   curl -O http://ftp.gnome.org/pub/GNOME/sources/aravis/0.6/aravis-0.6.3.tar.xz
-   tar zxf aravis-0.6.3.tar.xz
-   cd aravis-0.6.3
+   curl -O http://ftp.gnome.org/pub/GNOME/sources/aravis/0.8/aravis-0.8.35.tar.xz
+   tar zxf aravis-0.8.35.tar.xz
+   cd aravis-0.8.35
    ```
 
-2. install depended libraries via. homebrew
+2. install dependent libraries via Homebrew
 
    ```sh
-   brew install pkg-config gettext intltool glib libusb pcre libffi
+   brew install pkg-config gettext glib libusb
    brew link --force gettext
-   brew link --force intltool
    brew link --force glib
    brew link --force libusb
-   brew link --force libffi
    ```
 
-   command "brew link" creates symbolic link of headers and libraries to standard directories, i.e., /usr/local/include, /usr/local/lib etc...
+   command "brew link" creates symbolic links of headers and libraries to standard directories, i.e., /opt/homebrew/include, /opt/homebrew/lib etc...
 
 3. to suppress pkg-config  (a countermeasure for conflicting with existing packages or libraries but pkg-config itself is needed to install the libraries above.)
 
    ```sh
-   export ARAVIS_CFLAGS="-I/usr/local/include/glib-2.0"
-   export ARAVIS_CFLAGS+=" -I/usr/local/lib/glib-2.0/include"
-   export ARAVIS_CFLAGS+=" -I/usr/local/include/libusb-1.0"
+   export ARAVIS_CFLAGS="-I/opt/homebrew/include/glib-2.0"
+   export ARAVIS_CFLAGS+=" -I/opt/homebrew/lib/glib-2.0/include"
+   export ARAVIS_CFLAGS+=" -I/opt/homebrew/include/libusb-1.0"
    export ARAVIS_CFLAGS+=" -I/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/libxml2"
-   export ARAVIS_LIBS="-L/usr/lib -L/usr/local/lib -L/usr/local/opt/libffi/lib"
-   export ARAVIS_LIBS+=" -lusb-1.0 -lgio-2.0 -lgobject-2.0 -lxml2 -lglib-2.0 -lintl -lffi -lm"
+   export ARAVIS_LIBS="-L/usr/lib -L/opt/homebrew/lib"
+   export ARAVIS_LIBS+=" -lusb-1.0 -lgio-2.0 -lgobject-2.0 -lxml2 -lglib-2.0 -lintl -lm"
    ```
 
    note that the path to libxml headers should be chacked. The libxml2.dylib library is installed in /usr/lib but their headers are not in /usr/include on macOS (first of all, the directory /usr/include does not exist on macOS !).
@@ -127,7 +121,7 @@ following the aravis document (from now on, bash is assumed for shell),
    export CC=clang
    ```
    
-4. create makefile by configure
+4. create the makefile with configure
 
    ```sh
    ./configure --enable-usb --disable-viewer
@@ -152,20 +146,20 @@ to use Cocaravis,
 
 1. include the Cocaravis.framework  to "link binary With Libraries" on "build phase" in your Xcode project
 
-2. include the line bellow
+2. include the line below
 
    ```objective-c
    #import <Cocaravis/Cocaravis.h>
    ```
 
-   in your Objecitve-C source codes.
+   in your Objective-C source files.
 
 
 ## how to use Cocaravis
 
 ### device enumeration
 
-get referrence to CoACameraFinder object by
+get a reference to the CoACameraFinder object by
 
 ```objective-c
 + (CoACameraFinder *)sharedCameraFinder;
@@ -177,7 +171,7 @@ refer its property
 @property (readonly) NSArray<CoADeviceSignature *>     *connectedDevices;
 ```
 
-###specify desired camera
+### specify desired camera
 
 pick up a desired device from the array and call
 
@@ -187,7 +181,7 @@ pick up a desired device from the array and call
 
 to get CoACamera object.
 
-REMARK:*ArvCamera object can be passed NULL as an argument, but CoACamera cannot in current version.*
+REMARK: *ArvCamera object can be passed NULL as an argument, but CoACamera cannot in the current version.*
 
 ###create stream object
 
@@ -313,6 +307,4 @@ aravis github repository: https://github.com/AravisProject/aravis
 author's e-mail:	decafish@gmail.com
 
 author's blog:	https://decafish.blog.so-net.ne.jp (but sorry in Japanese)
-
-
 

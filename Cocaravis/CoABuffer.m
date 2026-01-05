@@ -68,11 +68,6 @@ static NSInteger    CoABufferPayloadTypeFromArvPalyloadType(int type);
 #pragma mark    *********** CoAImageBuffer   ************
 
 @interface CoAImageBuffer ()
-
-//  converter for bayer to RGB format wanted to be implemented with
-//  1. using GPU (via. Metal?)
-//  2. fixing design for extra pxiels surrounding standrad area with 4:3
-//- (void)convertBayer:(const void *)bayer toShrinkedRGBA:(UInt8 *)rgbPlane withWhiteBaranceR:(float)wr G:(float)wg B:(float)wb;
 @end
 
 
@@ -161,4 +156,3 @@ static NSInteger    CoABufferPayloadTypeFromArvPalyloadType(int type)
     }
     return ret;
 }
-

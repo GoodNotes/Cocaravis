@@ -281,11 +281,6 @@ static int          autoEnumToArv(NSUInteger valueAuto);
     
     if (_arvCamera == NULL)
         self = nil;
-    /*{
-        _arvCamera = (ArvCamera *)arv_gv_fake_camera_new("Fake");
-         if (_arvCamera == NULL)
-             self = nil;
-    }*/
     
     _device = nil;
     _stream = nil;
