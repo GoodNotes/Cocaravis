@@ -8,7 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		1802B2AD22DDB9EA00CD9E99 /* Cocaravis.h in Headers */ = {isa = PBXBuildFile; fileRef = 1802B2AB22DDB9EA00CD9E99 /* Cocaravis.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		1802B2B522DDBA2000CD9E99 /* libaravis-0.6.0.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 1802B2B422DDBA2000CD9E99 /* libaravis-0.6.0.dylib */; };
+		1802B2B522DDBA2000CD9E99 /* libaravis-0.8.0.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 1802B2B422DDBA2000CD9E99 /* libaravis-0.8.0.dylib */; };
 		1802B2B922DDBA4900CD9E99 /* libglib-2.0.0.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 1802B2B822DDBA4900CD9E99 /* libglib-2.0.0.dylib */; };
 		1802B2BD22DDBA6A00CD9E99 /* libgobject-2.0.0.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 1802B2BC22DDBA6A00CD9E99 /* libgobject-2.0.0.dylib */; };
 		1802B2BF22DDBA7B00CD9E99 /* libgthread-2.0.0.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 1802B2BE22DDBA7B00CD9E99 /* libgthread-2.0.0.dylib */; };
@@ -34,20 +34,18 @@
 		1802B2F122DDBBE400CD9E99 /* CoABuffer.m in Sources */ = {isa = PBXBuildFile; fileRef = 1802B2DB22DDBBE400CD9E99 /* CoABuffer.m */; };
 		1802B2F222DDBBE400CD9E99 /* CoAPixelFormat.m in Sources */ = {isa = PBXBuildFile; fileRef = 1802B2DC22DDBBE400CD9E99 /* CoAPixelFormat.m */; };
 		1802B2F322DDBBE400CD9E99 /* CoACameraFinder.h in Headers */ = {isa = PBXBuildFile; fileRef = 1802B2DD22DDBBE400CD9E99 /* CoACameraFinder.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		1802B2F722DDBD7800CD9E99 /* libpcre.1.dylib in CopyFiles */ = {isa = PBXBuildFile; fileRef = 1802B2C222DDBAA000CD9E99 /* libpcre.1.dylib */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
 		1802B2F822DDBD7A00CD9E99 /* libintl.8.dylib in CopyFiles */ = {isa = PBXBuildFile; fileRef = 1802B2C022DDBA8B00CD9E99 /* libintl.8.dylib */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
 		1802B2F922DDBD7D00CD9E99 /* libgthread-2.0.0.dylib in CopyFiles */ = {isa = PBXBuildFile; fileRef = 1802B2BE22DDBA7B00CD9E99 /* libgthread-2.0.0.dylib */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
 		1802B2FA22DDBD8000CD9E99 /* libgobject-2.0.0.dylib in CopyFiles */ = {isa = PBXBuildFile; fileRef = 1802B2BC22DDBA6A00CD9E99 /* libgobject-2.0.0.dylib */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
 		1802B2FB22DDBD8200CD9E99 /* libgmodule-2.0.0.dylib in CopyFiles */ = {isa = PBXBuildFile; fileRef = 1802B2BA22DDBA5C00CD9E99 /* libgmodule-2.0.0.dylib */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
 		1802B2FC22DDBD8500CD9E99 /* libglib-2.0.0.dylib in CopyFiles */ = {isa = PBXBuildFile; fileRef = 1802B2B822DDBA4900CD9E99 /* libglib-2.0.0.dylib */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
 		1802B2FD22DDBD8800CD9E99 /* libgio-2.0.0.dylib in CopyFiles */ = {isa = PBXBuildFile; fileRef = 1802B2B622DDBA3700CD9E99 /* libgio-2.0.0.dylib */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
-		1802B2FE22DDBD8B00CD9E99 /* libaravis-0.6.0.dylib in CopyFiles */ = {isa = PBXBuildFile; fileRef = 1802B2B422DDBA2000CD9E99 /* libaravis-0.6.0.dylib */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
+		1802B2FE22DDBD8B00CD9E99 /* libaravis-0.8.0.dylib in CopyFiles */ = {isa = PBXBuildFile; fileRef = 1802B2B422DDBA2000CD9E99 /* libaravis-0.8.0.dylib */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
 		1802B30A22DDC35700CD9E99 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 1802B30922DDC35700CD9E99 /* AppDelegate.m */; };
 		1802B30C22DDC35A00CD9E99 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1802B30B22DDC35A00CD9E99 /* Assets.xcassets */; };
 		1802B30F22DDC35A00CD9E99 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1802B30D22DDC35A00CD9E99 /* MainMenu.xib */; };
 		1802B31222DDC35A00CD9E99 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 1802B31122DDC35A00CD9E99 /* main.m */; };
 		1802B31E22DDC3DD00CD9E99 /* TestViewer.m in Sources */ = {isa = PBXBuildFile; fileRef = 1802B31D22DDC3DD00CD9E99 /* TestViewer.m */; };
-		1802B33422DEFE0F00CD9E99 /* libffi.6.dylib in CopyFiles */ = {isa = PBXBuildFile; fileRef = 1802B33222DEFE0200CD9E99 /* libffi.6.dylib */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
 		1809B2D822E6DA70000BAFCA /* Cocaravis.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1898888D22E59F5B00EA73C8 /* Cocaravis.framework */; };
 		18A9653F22DFD591009DCD0D /* libusb-1.0.0.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 18A9653E22DFD591009DCD0D /* libusb-1.0.0.dylib */; };
 		18A9654022DFD59B009DCD0D /* libusb-1.0.0.dylib in CopyFiles */ = {isa = PBXBuildFile; fileRef = 18A9653E22DFD591009DCD0D /* libusb-1.0.0.dylib */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
@@ -61,14 +59,12 @@
 			dstSubfolderSpec = 10;
 			files = (
 				1802B2F822DDBD7A00CD9E99 /* libintl.8.dylib in CopyFiles */,
-				1802B2F722DDBD7800CD9E99 /* libpcre.1.dylib in CopyFiles */,
 				1802B2F922DDBD7D00CD9E99 /* libgthread-2.0.0.dylib in CopyFiles */,
 				1802B2FA22DDBD8000CD9E99 /* libgobject-2.0.0.dylib in CopyFiles */,
 				1802B2FB22DDBD8200CD9E99 /* libgmodule-2.0.0.dylib in CopyFiles */,
 				1802B2FC22DDBD8500CD9E99 /* libglib-2.0.0.dylib in CopyFiles */,
 				1802B2FD22DDBD8800CD9E99 /* libgio-2.0.0.dylib in CopyFiles */,
-				1802B2FE22DDBD8B00CD9E99 /* libaravis-0.6.0.dylib in CopyFiles */,
-				1802B33422DEFE0F00CD9E99 /* libffi.6.dylib in CopyFiles */,
+				1802B2FE22DDBD8B00CD9E99 /* libaravis-0.8.0.dylib in CopyFiles */,
 				18A9654022DFD59B009DCD0D /* libusb-1.0.0.dylib in CopyFiles */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -89,14 +85,13 @@
 		1802B2A822DDB9EA00CD9E99 /* Cocaravis.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Cocaravis.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		1802B2AB22DDB9EA00CD9E99 /* Cocaravis.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Cocaravis.h; sourceTree = "<group>"; };
 		1802B2AC22DDB9EA00CD9E99 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		1802B2B422DDBA2000CD9E99 /* libaravis-0.6.0.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = "libaravis-0.6.0.dylib"; path = "../../../../../../usr/local/lib/libaravis-0.6.0.dylib"; sourceTree = "<group>"; };
-		1802B2B622DDBA3700CD9E99 /* libgio-2.0.0.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = "libgio-2.0.0.dylib"; path = "../../../../../../usr/local/Cellar/glib/2.60.5/lib/libgio-2.0.0.dylib"; sourceTree = "<group>"; };
-		1802B2B822DDBA4900CD9E99 /* libglib-2.0.0.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = "libglib-2.0.0.dylib"; path = "../../../../../../usr/local/Cellar/glib/2.60.5/lib/libglib-2.0.0.dylib"; sourceTree = "<group>"; };
-		1802B2BA22DDBA5C00CD9E99 /* libgmodule-2.0.0.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = "libgmodule-2.0.0.dylib"; path = "../../../../../../usr/local/Cellar/glib/2.60.5/lib/libgmodule-2.0.0.dylib"; sourceTree = "<group>"; };
-		1802B2BC22DDBA6A00CD9E99 /* libgobject-2.0.0.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = "libgobject-2.0.0.dylib"; path = "../../../../../../usr/local/Cellar/glib/2.60.5/lib/libgobject-2.0.0.dylib"; sourceTree = "<group>"; };
-		1802B2BE22DDBA7B00CD9E99 /* libgthread-2.0.0.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = "libgthread-2.0.0.dylib"; path = "../../../../../../usr/local/Cellar/glib/2.60.5/lib/libgthread-2.0.0.dylib"; sourceTree = "<group>"; };
-		1802B2C022DDBA8B00CD9E99 /* libintl.8.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libintl.8.dylib; path = ../../../../../../usr/local/Cellar/gettext/0.20.1/lib/libintl.8.dylib; sourceTree = "<group>"; };
-		1802B2C222DDBAA000CD9E99 /* libpcre.1.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libpcre.1.dylib; path = ../../../../../../usr/local/Cellar/pcre/8.43/lib/libpcre.1.dylib; sourceTree = "<group>"; };
+		1802B2B422DDBA2000CD9E99 /* libaravis-0.8.0.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = "libaravis-0.8.0.dylib"; path = "../../../../../../opt/homebrew/lib/libaravis-0.8.0.dylib"; sourceTree = "<group>"; };
+		1802B2B622DDBA3700CD9E99 /* libgio-2.0.0.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = "libgio-2.0.0.dylib"; path = "../../../../../../opt/homebrew/lib/libgio-2.0.0.dylib"; sourceTree = "<group>"; };
+		1802B2B822DDBA4900CD9E99 /* libglib-2.0.0.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = "libglib-2.0.0.dylib"; path = "../../../../../../opt/homebrew/lib/libglib-2.0.0.dylib"; sourceTree = "<group>"; };
+		1802B2BA22DDBA5C00CD9E99 /* libgmodule-2.0.0.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = "libgmodule-2.0.0.dylib"; path = "../../../../../../opt/homebrew/lib/libgmodule-2.0.0.dylib"; sourceTree = "<group>"; };
+		1802B2BC22DDBA6A00CD9E99 /* libgobject-2.0.0.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = "libgobject-2.0.0.dylib"; path = "../../../../../../opt/homebrew/lib/libgobject-2.0.0.dylib"; sourceTree = "<group>"; };
+		1802B2BE22DDBA7B00CD9E99 /* libgthread-2.0.0.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = "libgthread-2.0.0.dylib"; path = "../../../../../../opt/homebrew/lib/libgthread-2.0.0.dylib"; sourceTree = "<group>"; };
+		1802B2C022DDBA8B00CD9E99 /* libintl.8.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libintl.8.dylib; path = ../../../../../../opt/homebrew/opt/gettext/lib/libintl.8.dylib; sourceTree = "<group>"; };
 		1802B2C822DDBBE200CD9E99 /* CoACameraFeature.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CoACameraFeature.h; sourceTree = "<group>"; };
 		1802B2C922DDBBE200CD9E99 /* CoAFrameAverager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CoAFrameAverager.h; sourceTree = "<group>"; };
 		1802B2CA22DDBBE200CD9E99 /* CoADevice.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CoADevice.m; sourceTree = "<group>"; };
@@ -130,10 +125,9 @@
 		1802B31322DDC35A00CD9E99 /* TestViewer.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = TestViewer.entitlements; sourceTree = "<group>"; };
 		1802B31C22DDC3DD00CD9E99 /* TestViewer.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TestViewer.h; sourceTree = "<group>"; };
 		1802B31D22DDC3DD00CD9E99 /* TestViewer.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TestViewer.m; sourceTree = "<group>"; };
-		1802B33222DEFE0200CD9E99 /* libffi.6.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libffi.6.dylib; path = ../../../../../../usr/local/Cellar/libffi/3.2.1/lib/libffi.6.dylib; sourceTree = "<group>"; };
 		1809B2D622E6DA58000BAFCA /* Cocaravis.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocaravis.framework; path = binary/Cocaravis.framework; sourceTree = "<group>"; };
 		1898888D22E59F5B00EA73C8 /* Cocaravis.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocaravis.framework; path = binary/Cocaravis.framework; sourceTree = "<group>"; };
-		18A9653E22DFD591009DCD0D /* libusb-1.0.0.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = "libusb-1.0.0.dylib"; path = "../../../../../../usr/local/Cellar/libusb/1.0.22/lib/libusb-1.0.0.dylib"; sourceTree = "<group>"; };
+		18A9653E22DFD591009DCD0D /* libusb-1.0.0.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = "libusb-1.0.0.dylib"; path = "../../../../../../opt/homebrew/lib/libusb-1.0.0.dylib"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -145,7 +139,7 @@
 				1802B2B922DDBA4900CD9E99 /* libglib-2.0.0.dylib in Frameworks */,
 				1802B2BF22DDBA7B00CD9E99 /* libgthread-2.0.0.dylib in Frameworks */,
 				1802B2BD22DDBA6A00CD9E99 /* libgobject-2.0.0.dylib in Frameworks */,
-				1802B2B522DDBA2000CD9E99 /* libaravis-0.6.0.dylib in Frameworks */,
+				1802B2B522DDBA2000CD9E99 /* libaravis-0.8.0.dylib in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -217,15 +211,13 @@
 			children = (
 				1898888D22E59F5B00EA73C8 /* Cocaravis.framework */,
 				18A9653E22DFD591009DCD0D /* libusb-1.0.0.dylib */,
-				1802B33222DEFE0200CD9E99 /* libffi.6.dylib */,
-				1802B2C222DDBAA000CD9E99 /* libpcre.1.dylib */,
 				1802B2C022DDBA8B00CD9E99 /* libintl.8.dylib */,
 				1802B2BE22DDBA7B00CD9E99 /* libgthread-2.0.0.dylib */,
 				1802B2BC22DDBA6A00CD9E99 /* libgobject-2.0.0.dylib */,
 				1802B2BA22DDBA5C00CD9E99 /* libgmodule-2.0.0.dylib */,
 				1802B2B822DDBA4900CD9E99 /* libglib-2.0.0.dylib */,
 				1802B2B622DDBA3700CD9E99 /* libgio-2.0.0.dylib */,
-				1802B2B422DDBA2000CD9E99 /* libaravis-0.6.0.dylib */,
+				1802B2B422DDBA2000CD9E99 /* libaravis-0.8.0.dylib */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -385,7 +377,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/bash;
-			shellScript = "EXECFILE=${BUILT_PRODUCTS_DIR}/${EXECUTABLE_PATH}\nLIBPATH=${BUILT_PRODUCTS_DIR}/${FRAMEWORKS_FOLDER_PATH}\nNEWLIBPATH=@loader_path/Frameworks\n\ncd ${LIBPATH}\nTARGETS=(`ls -w *.dylib`)\n\nfor TARGET in ${TARGETS[@]}\ndo\nLIBFILE=${LIBPATH}/${TARGET}\nTARGETID=`otool -DX \"${TARGET}\"`\nNEWTARGETID=${NEWLIBPATH}/${TARGET}\ninstall_name_tool -id \"${NEWTARGETID}\" \"${LIBFILE}\"\ninstall_name_tool -change ${TARGETID} ${NEWTARGETID} \"${EXECFILE}\"\ndone\n\nfor TARGET in ${TARGETS[@]}\ndo\nfor LIB in ${TARGETS[@]}\ndo\nif [ ${TARGET} != ${LIB} ]\nthen\nREFLIBS=(`otool -LX $TARGET | grep $LIB`)\nif [ ${#REFLIBS[0]% *} -gt 0 ]\nthen\nNEWLIBID=@rpath/${LIB}\ninstall_name_tool -change ${REFLIBS} ${NEWLIBID} ${TARGET}\nfi\nfi\ndone\ndone\n\n                                                                                                                                   \n";
+			shellScript = "EXECFILE=${BUILT_PRODUCTS_DIR}/${EXECUTABLE_PATH}\nLIBPATH=${BUILT_PRODUCTS_DIR}/${FRAMEWORKS_FOLDER_PATH}\nNEWLIBPATH=@loader_path/Frameworks\n\nif [ ! -d \"${LIBPATH}\" ]; then\n  exit 0\nfi\n\ncd \"${LIBPATH}\" || exit 0\nTARGETS=( *.dylib )\n\nfor TARGET in ${TARGETS[@]}\ndo\n  if [ ! -f \"${TARGET}\" ]; then\n    continue\n  fi\n  LIBFILE=\"${LIBPATH}/${TARGET}\"\n  TARGETID=$(otool -DX \"${LIBFILE}\" | tail -n 1)\n  NEWTARGETID=${NEWLIBPATH}/${TARGET}\n  install_name_tool -id \"${NEWTARGETID}\" \"${LIBFILE}\"\n  if [ -n \"${TARGETID}\" ]; then\n    install_name_tool -change \"${TARGETID}\" \"${NEWTARGETID}\" \"${EXECFILE}\"\n  fi\ndone\n\nfor TARGET in ${TARGETS[@]}\ndo\n  if [ ! -f \"${TARGET}\" ]; then\n    continue\n  fi\n  for LIB in ${TARGETS[@]}\n  do\n    if [ ! -f \"${LIB}\" ]; then\n      continue\n    fi\n    if [ \"${TARGET}\" != \"${LIB}\" ]; then\n      REFLIB=$(otool -LX \"${TARGET}\" | grep \"${LIB}\" | head -n 1 | awk '{print $1}')\n      if [ -n \"${REFLIB}\" ]; then\n        NEWLIBID=@rpath/${LIB}\n        install_name_tool -change \"${REFLIB}\" \"${NEWLIBID}\" \"${TARGET}\"\n      fi\n    fi\n  done\ndone\n";
 		};
 /* End PBXShellScriptBuildPhase section */
 
@@ -552,20 +544,20 @@
 		1802B2B122DDB9EA00CD9E99 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CODE_SIGN_IDENTITY = "";
-				CODE_SIGN_STYLE = Manual;
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				DEFINES_MODULE = YES;
-				DEVELOPMENT_TEAM = 96RQ3K3QYL;
+				DEVELOPMENT_TEAM = PHRMG7H992;
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				FRAMEWORK_VERSION = A;
 				HEADER_SEARCH_PATHS = (
-					/usr/local/include,
-					"/usr/local/include/aravis-0.6",
-					"/usr/local/include/glib-2.0",
-					"/usr/local/lib/glib-2.0/include/",
+					/opt/homebrew/include,
+					"/opt/homebrew/include/aravis-0.8",
+					"/opt/homebrew/include/glib-2.0",
+					"/opt/homebrew/lib/glib-2.0/include",
 				);
 				INFOPLIST_FILE = Cocaravis/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
@@ -575,13 +567,9 @@
 				);
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
-					/usr/local/lib,
-					/usr/local/opt/libffi/lib,
-					/usr/local/Cellar/glib/2.60.5/lib,
-					/usr/local/Cellar/libffi/3.2.1/lib,
-					/usr/local/Cellar/libusb/1.0.22/lib,
+					/opt/homebrew/lib,
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "jp.ne.so-net.decafish.Cocaravis";
+				PRODUCT_BUNDLE_IDENTIFIER = me.jlgao.cocoravis;
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SKIP_INSTALL = YES;
@@ -591,20 +579,20 @@
 		1802B2B222DDB9EA00CD9E99 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CODE_SIGN_IDENTITY = "";
-				CODE_SIGN_STYLE = Manual;
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				DEFINES_MODULE = YES;
-				DEVELOPMENT_TEAM = 96RQ3K3QYL;
+				DEVELOPMENT_TEAM = PHRMG7H992;
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				FRAMEWORK_VERSION = A;
 				HEADER_SEARCH_PATHS = (
-					/usr/local/include,
-					"/usr/local/include/aravis-0.6",
-					"/usr/local/include/glib-2.0",
-					"/usr/local/lib/glib-2.0/include/",
+					/opt/homebrew/include,
+					"/opt/homebrew/include/aravis-0.8",
+					"/opt/homebrew/include/glib-2.0",
+					"/opt/homebrew/lib/glib-2.0/include",
 				);
 				INFOPLIST_FILE = Cocaravis/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
@@ -614,13 +602,9 @@
 				);
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
-					/usr/local/lib,
-					/usr/local/opt/libffi/lib,
-					/usr/local/Cellar/glib/2.60.5/lib,
-					/usr/local/Cellar/libffi/3.2.1/lib,
-					/usr/local/Cellar/libusb/1.0.22/lib,
+					/opt/homebrew/lib,
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "jp.ne.so-net.decafish.Cocaravis";
+				PRODUCT_BUNDLE_IDENTIFIER = me.jlgao.cocoravis;
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SKIP_INSTALL = YES;
@@ -634,7 +618,7 @@
 				CODE_SIGN_ENTITLEMENTS = TestViewer/TestViewer.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
-				DEVELOPMENT_TEAM = 96RQ3K3QYL;
+				DEVELOPMENT_TEAM = PHRMG7H992;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/binary",
@@ -656,7 +640,7 @@
 				CODE_SIGN_ENTITLEMENTS = TestViewer/TestViewer.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
-				DEVELOPMENT_TEAM = 96RQ3K3QYL;
+				DEVELOPMENT_TEAM = PHRMG7H992;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/binary",

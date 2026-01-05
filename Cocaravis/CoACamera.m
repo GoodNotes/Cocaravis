@@ -103,15 +103,21 @@ static int          autoEnumToArv(NSUInteger valueAuto);
 @implementation CoATriggerSourceAcquisitionProperty
 - (NSString *)setNewValue:(NSString *)newValue
 {
-    arv_camera_set_trigger_source(self.camera.arvCamera, [newValue cStringUsingEncoding:NSASCIIStringEncoding]);
-    const char  *tsource = arv_camera_get_trigger_source(self.camera.arvCamera);
+    GError  *error = NULL;
+    arv_camera_set_trigger_source(self.camera.arvCamera, [newValue cStringUsingEncoding:NSASCIIStringEncoding], &error);
+    if (error != NULL)
+        return nil;
+    const char  *tsource = arv_camera_get_trigger_source(self.camera.arvCamera, &error);
+    if (error != NULL)
+        return nil;
     return [NSString stringWithCString:tsource encoding:NSASCIIStringEncoding];
 }
 @end
 @implementation CoATriggerModeAcquisitionProperty
 - (NSString *)setNewValue:(NSString *)newValue
 {
-    arv_camera_set_trigger(self.camera.arvCamera, [newValue cStringUsingEncoding:NSASCIIStringEncoding]);
+    GError  *error = NULL;
+    arv_camera_set_trigger(self.camera.arvCamera, [newValue cStringUsingEncoding:NSASCIIStringEncoding], &error);
      return newValue;
 }
 @end
@@ -149,8 +155,11 @@ static int          autoEnumToArv(NSUInteger valueAuto);
 
 - (double)setNewValue:(double)newValue
 {
-    arv_camera_set_frame_rate(self.camera.arvCamera, newValue);
-    return arv_camera_get_frame_rate(self.camera.arvCamera);
+    GError  *error = NULL;
+    arv_camera_set_frame_rate(self.camera.arvCamera, newValue, &error);
+    if (error != NULL)
+        return self.value;
+    return arv_camera_get_frame_rate(self.camera.arvCamera, &error);
 }
 @end
 
@@ -163,8 +172,11 @@ static int          autoEnumToArv(NSUInteger valueAuto);
 
 - (double)setNewValue:(double)newValue
 {
-    arv_camera_set_exposure_time(self.camera.arvCamera, newValue * exposureTimeRatioFromSec);
-    return arv_camera_get_exposure_time(self.camera.arvCamera) * exposureTimeRatioToSec;
+    GError  *error = NULL;
+    arv_camera_set_exposure_time(self.camera.arvCamera, newValue * exposureTimeRatioFromSec, &error);
+    if (error != NULL)
+        return self.value;
+    return arv_camera_get_exposure_time(self.camera.arvCamera, &error) * exposureTimeRatioToSec;
 }
 @end
 
@@ -178,8 +190,11 @@ static int          autoEnumToArv(NSUInteger valueAuto);
 
 - (double)setNewValue:(double)newValue
 {
-    arv_camera_set_gain(self.camera.arvCamera, newValue);
-    return arv_camera_get_gain(self.camera.arvCamera);
+    GError  *error = NULL;
+    arv_camera_set_gain(self.camera.arvCamera, newValue, &error);
+    if (error != NULL)
+        return self.value;
+    return arv_camera_get_gain(self.camera.arvCamera, &error);
 }
 @end
 
@@ -207,7 +222,10 @@ static int          autoEnumToArv(NSUInteger valueAuto);
 {
     if ((super.min <= super.currentValue) && (super.currentValue <= super.max)
         && (self.ymin <= self.ycurrentValue) && (self.ycurrentValue <= self.ymax))
-        arv_camera_set_binning(self.camera.arvCamera, (gint)(super.currentValue), (gint)(self.ycurrentValue));
+    {
+        GError  *error = NULL;
+        arv_camera_set_binning(self.camera.arvCamera, (gint)(super.currentValue), (gint)(self.ycurrentValue), &error);
+    }
 }
 - (void)setCurrentValue:(NSInteger)currentValue
 {
@@ -258,7 +276,8 @@ static int          autoEnumToArv(NSUInteger valueAuto);
     
     _signature = signature;
     const char  *deviceId = [signature.deviceId cStringUsingEncoding:NSASCIIStringEncoding];
-    _arvCamera = arv_camera_new(deviceId);
+    GError  *error = NULL;
+    _arvCamera = arv_camera_new(deviceId, &error);
     
     if (_arvCamera == NULL)
         self = nil;
@@ -271,7 +290,8 @@ static int          autoEnumToArv(NSUInteger valueAuto);
     _device = nil;
     _stream = nil;
     
-    arv_camera_set_acquisition_mode(_arvCamera, ARV_ACQUISITION_MODE_CONTINUOUS);
+    error = NULL;
+    arv_camera_set_acquisition_mode(_arvCamera, ARV_ACQUISITION_MODE_CONTINUOUS, &error);
     
     _pixelFormats = [self enumeratePixelFormats];
     _sensorPixelSize = [self sensorSize];
@@ -311,7 +331,8 @@ static int          autoEnumToArv(NSUInteger valueAuto);
 
 - (const char *)deviceID
 {
-    return arv_camera_get_device_id(self.arvCamera);
+    GError  *error = NULL;
+    return arv_camera_get_device_id(self.arvCamera, &error);
 }
 
 - (CoADevice *)cameraDevice
@@ -328,7 +349,8 @@ static int          autoEnumToArv(NSUInteger valueAuto);
     gint    y;
     gint    width;
     gint    height;
-    arv_camera_get_region(_arvCamera, &x, &y, &width, &height);
+    GError  *error = NULL;
+    arv_camera_get_region(_arvCamera, &x, &y, &width, &height, &error);
     return NSMakeRect(x * 1.0, y * 1.0, width * 1.0, height * 1.0);
 }
 
@@ -342,7 +364,8 @@ static int          autoEnumToArv(NSUInteger valueAuto);
         gint    y = (gint)(roi.origin.y);
         gint    width = (gint)(roi.size.width);
         gint    height = (gint)(roi.size.height);
-        arv_camera_set_region(_arvCamera, x, y, width, height);
+        GError  *error = NULL;
+        arv_camera_set_region(_arvCamera, x, y, width, height, &error);
     }
 }
 
@@ -390,13 +413,15 @@ static NSSize   standard4x3PixelNumbers[] = {
 {
     gint    width;
     gint    height;
-    arv_camera_get_sensor_size(_arvCamera, &width, &height);
+    GError  *error = NULL;
+    arv_camera_get_sensor_size(_arvCamera, &width, &height, &error);
     return NSMakeSize(width * 1.0, height * 1.0);
 }
 
 - (NSString *)pixelFormat
 {
-    ArvPixelFormat  num = arv_camera_get_pixel_format(self.arvCamera);
+    GError  *error = NULL;
+    ArvPixelFormat  num = arv_camera_get_pixel_format(self.arvCamera, &error);
     for (CoAPixelFormat *pf in self.pixelFormats)
         if (pf.intValue == num)
             return pf.displayName;
@@ -407,7 +432,8 @@ static NSSize   standard4x3PixelNumbers[] = {
 {
     for (CoAPixelFormat *pf in self.pixelFormats)
         if ([pf.displayName isEqualToString:pixelFormat]) {
-            arv_camera_set_pixel_format(self.arvCamera, pf.intValue);
+            GError  *error = NULL;
+            arv_camera_set_pixel_format(self.arvCamera, pf.intValue, &error);
         }
 }
 
@@ -428,19 +454,24 @@ static NSSize   standard4x3PixelNumbers[] = {
 - (void)startAquisition
 {
     if (self.stream != nil)
-        arv_camera_start_acquisition(_arvCamera);
+    {
+        GError  *error = NULL;
+        arv_camera_start_acquisition(_arvCamera, &error);
+    }
 }
 
 - (void)stopAquisition
 {
-    arv_camera_stop_acquisition(_arvCamera);
+    GError  *error = NULL;
+    arv_camera_stop_acquisition(_arvCamera, &error);
     [self.stream stopStream];
     //  self.stream = nil;
 }
 
 - (void)abortAquisition
 {
-    arv_camera_abort_acquisition(_arvCamera);
+    GError  *error = NULL;
+    arv_camera_abort_acquisition(_arvCamera, &error);
 }
 
 - (CoAStream *)createCoAStreamWithPooledBufferCount:(NSUInteger)count
@@ -448,7 +479,7 @@ static NSSize   standard4x3PixelNumbers[] = {
 //  if stream object was created once, is it will release when new one is created?
 
     self.stream = [[CoAStream alloc] initWithCamera:self
-                                   pooledBufferSize:arv_camera_get_payload(self.arvCamera)
+                                   pooledBufferSize:arv_camera_get_payload(self.arvCamera, NULL)
                                               Count:count];
 /*
     self.stream = [[CoAStream alloc] initWithCamera:self
@@ -460,12 +491,12 @@ static NSSize   standard4x3PixelNumbers[] = {
 
 - (NSUInteger)currentPayloadSize
 {
-    return (NSUInteger)arv_camera_get_payload(self.arvCamera);
+    return (NSUInteger)arv_camera_get_payload(self.arvCamera, NULL);
 }
 
 - (ArvStream *)createArvStream
 {
-    return arv_camera_create_stream(self.arvCamera, NULL, NULL);
+    return arv_camera_create_stream(self.arvCamera, NULL, NULL, NULL);
 }
 
 - (ArvCamera *)arvCameraObject
@@ -475,18 +506,24 @@ static NSSize   standard4x3PixelNumbers[] = {
 
 - (NSArray *)enumeratePixelFormats
 {
-    guint   count;
-    const char  **pfstrings = arv_camera_get_available_pixel_formats_as_strings(_arvCamera, &count);
-    const char  **dnames = arv_camera_get_available_pixel_formats_as_display_names(_arvCamera, &count);
-    gint64      *pfs = arv_camera_get_available_pixel_formats(_arvCamera, &count);
+    guint   count = 0;
+    GError  *error = NULL;
+    const char  **pfstrings = arv_camera_dup_available_pixel_formats_as_strings(_arvCamera, &count, &error);
+    const char  **dnames = arv_camera_dup_available_pixel_formats_as_display_names(_arvCamera, &count, &error);
+    gint64      *pfs = arv_camera_dup_available_pixel_formats(_arvCamera, &count, &error);
     NSMutableArray  *temp = [[NSMutableArray alloc] initWithCapacity:count];
-    for (guint i = 0 ; i < count ; i ++) {
-        CoAPixelFormat   *pf = [CoAPixelFormat new];
-        pf.intValue = (gint32)(pfs[i] & 0x00000000FFFFFFFF);
-        pf.formatString = [NSString stringWithCString:dnames[i] encoding:NSASCIIStringEncoding];
-        pf.displayName = [NSString stringWithCString:pfstrings[i] encoding:NSASCIIStringEncoding];
-        [temp addObject:pf];
+    if (error == NULL && pfstrings != NULL && dnames != NULL && pfs != NULL) {
+        for (guint i = 0 ; i < count ; i ++) {
+            CoAPixelFormat   *pf = [CoAPixelFormat new];
+            pf.intValue = (gint32)(pfs[i] & 0x00000000FFFFFFFF);
+            pf.formatString = [NSString stringWithCString:dnames[i] encoding:NSASCIIStringEncoding];
+            pf.displayName = [NSString stringWithCString:pfstrings[i] encoding:NSASCIIStringEncoding];
+            [temp addObject:pf];
+        }
     }
+    g_free((gpointer)pfstrings);
+    g_free((gpointer)dnames);
+    g_free((gpointer)pfs);
     return [NSArray arrayWithArray:temp];
 }
 
@@ -511,7 +548,7 @@ static NSSize   standard4x3PixelNumbers[] = {
 
 - (CoAAcquisitionProperty *)exposureProperty
 {
-    if (! arv_camera_is_exposure_time_available(_arvCamera))
+    if (! arv_camera_is_exposure_time_available(_arvCamera, NULL))
         return nil;
     
     CoAExposureTimeAcquisitionProperty   *expp = [CoAExposureTimeAcquisitionProperty new];
@@ -519,12 +556,12 @@ static NSSize   standard4x3PixelNumbers[] = {
     expp.camera = self;
     expp.unit = @"sec";
     double  min, max;
-    arv_camera_get_exposure_time_bounds(_arvCamera, &min, &max);
+    arv_camera_get_exposure_time_bounds(_arvCamera, &min, &max, NULL);
     expp.min = min * exposureTimeRatioToSec;
     expp.max = max * exposureTimeRatioToSec;
-    expp.currentValue = arv_camera_get_exposure_time(_arvCamera) * exposureTimeRatioToSec;
-    if (arv_camera_is_exposure_auto_available(_arvCamera)) {
-        ArvAuto aut = arv_camera_get_exposure_time_auto(_arvCamera);
+    expp.currentValue = arv_camera_get_exposure_time(_arvCamera, NULL) * exposureTimeRatioToSec;
+    if (arv_camera_is_exposure_auto_available(_arvCamera, NULL)) {
+        ArvAuto aut = arv_camera_get_exposure_time_auto(_arvCamera, NULL);
         expp.valueAuto = autoEnumFromArv(aut);
     }
     else
@@ -534,7 +571,7 @@ static NSSize   standard4x3PixelNumbers[] = {
 
 - (CoAAcquisitionProperty *)frameRateProperty
 {
-    if (! arv_camera_is_frame_rate_available(_arvCamera))
+    if (! arv_camera_is_frame_rate_available(_arvCamera, NULL))
         return nil;
     
     CoAFrameRateAcquisitionProperty   *frm = [CoAFrameRateAcquisitionProperty new];
@@ -542,17 +579,17 @@ static NSSize   standard4x3PixelNumbers[] = {
     frm.camera = self;
     frm.unit = @"fps";
     double  min, max;
-    arv_camera_get_frame_rate_bounds(_arvCamera, &min, &max);
+    arv_camera_get_frame_rate_bounds(_arvCamera, &min, &max, NULL);
     frm.min = min;
     frm.max = max;
-    frm.currentValue = arv_camera_get_frame_rate(_arvCamera);
+    frm.currentValue = arv_camera_get_frame_rate(_arvCamera, NULL);
     frm.valueAuto = autoNotImplemented;
     return frm;
 }
 
 - (CoAAcquisitionProperty *)gainProperty
 {
-    if (! arv_camera_is_gain_available(_arvCamera))
+    if (! arv_camera_is_gain_available(_arvCamera, NULL))
         return nil;
     
     CoAGainAcquisitionProperty   *gain = [CoAGainAcquisitionProperty new];
@@ -560,12 +597,12 @@ static NSSize   standard4x3PixelNumbers[] = {
     gain.camera = self;
     gain.unit = @"dB";
     double  min, max;
-    arv_camera_get_gain_bounds(_arvCamera, &min, &max);
+    arv_camera_get_gain_bounds(_arvCamera, &min, &max, NULL);
     gain.min = min;
     gain.max = max;
-    gain.currentValue = arv_camera_get_gain(_arvCamera);
-    if (arv_camera_is_gain_auto_available(_arvCamera)) {
-        ArvAuto aut = arv_camera_get_gain_auto(_arvCamera);
+    gain.currentValue = arv_camera_get_gain(_arvCamera, NULL);
+    if (arv_camera_is_gain_auto_available(_arvCamera, NULL)) {
+        ArvAuto aut = arv_camera_get_gain_auto(_arvCamera, NULL);
         gain.valueAuto = autoEnumFromArv(aut);
     }
     return gain;
@@ -578,13 +615,13 @@ static NSSize   standard4x3PixelNumbers[] = {
     trig.camera = self;
     trig.unit = @"";
     guint       count;
-    const char  **tsources = arv_camera_get_available_trigger_sources(_arvCamera, &count);
+    const char  **tsources = arv_camera_dup_available_trigger_sources(_arvCamera, &count, NULL);
     NSMutableArray  *tmp = [NSMutableArray arrayWithCapacity:count];
     for (guint i = 0 ; i < count ; i ++)
         [tmp addObject:[NSString stringWithCString:tsources[i] encoding:NSASCIIStringEncoding]];
     g_free(tsources);
     trig.availableValues = [NSArray arrayWithArray:tmp];
-    NSString    *ts = [NSString stringWithCString:arv_camera_get_trigger_source(_arvCamera) encoding:NSASCIIStringEncoding];
+    NSString    *ts = [NSString stringWithCString:arv_camera_get_trigger_source(_arvCamera, NULL) encoding:NSASCIIStringEncoding];
     NSUInteger  index = [tmp indexOfObject:ts];
     if (index < count)
         trig.currentValue = [tmp objectAtIndex:index];
@@ -598,20 +635,20 @@ static NSSize   standard4x3PixelNumbers[] = {
     trig.camera = self;
     trig.unit = @"";
     guint       count;
-    const char  **triggers = arv_camera_get_available_triggers(_arvCamera, &count);
+    const char  **triggers = arv_camera_dup_available_triggers(_arvCamera, &count, NULL);
     NSMutableArray  *tmp = [NSMutableArray arrayWithCapacity:count];
     for (guint i = 0 ; i < count ; i ++)
         [tmp addObject:[NSString stringWithCString:triggers[i] encoding:NSASCIIStringEncoding]];
     g_free(triggers);
     trig.availableValues = [NSArray arrayWithArray:tmp];
     //trig.currentValue = tmp[0];
-    arv_camera_clear_triggers(self.arvCamera);
+    arv_camera_clear_triggers(self.arvCamera, NULL);
     return trig;
 }
 
 - (CoAAcquisitionProperty *)binningProperty
 {
-    if (! arv_camera_is_binning_available(_arvCamera))
+    if (! arv_camera_is_binning_available(_arvCamera, NULL))
         return nil;
     
     CoA2DIntegerAcquisitionProperty   *bin = [CoA2DIntegerAcquisitionProperty new];
@@ -619,14 +656,14 @@ static NSSize   standard4x3PixelNumbers[] = {
     bin.camera = self;
     bin.unit = @"pixels";
     gint    min, max;
-    arv_camera_get_x_binning_bounds(_arvCamera, &min, &max);
+    arv_camera_get_x_binning_bounds(_arvCamera, &min, &max, NULL);
     bin.min = min;
     bin.max = max;
-    arv_camera_get_y_binning_bounds(_arvCamera, &min, &max);
+    arv_camera_get_y_binning_bounds(_arvCamera, &min, &max, NULL);
     bin.ymin = min;
     bin.ymax = max;
     gint    x, y;
-    arv_camera_get_binning(_arvCamera, &x, &y);
+    arv_camera_get_binning(_arvCamera, &x, &y, NULL);
     bin.currentValue = x;
     bin.ycurrentValue = y;
     bin.valueAuto = autoNotImplemented;

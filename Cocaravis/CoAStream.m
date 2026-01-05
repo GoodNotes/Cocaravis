@@ -54,7 +54,7 @@ void    streamCallback(void *user_data,
     _underrunCount = 0;
     _underrunDifference = 0;
     _lastTimeStamp = -1;
-    _stream = arv_camera_create_stream(camera.arvCameraObject, NULL, NULL);
+    _stream = arv_camera_create_stream(camera.arvCameraObject, NULL, NULL, NULL);
     //_stream = arv_device_create_stream(device.arvDeviceObject, streamCallback, (void *)CFBridgingRetain(self));
     if (_stream == NULL)
         return nil;

@@ -45,7 +45,7 @@ static NSString         *noUnitString   = @"";
         obj = [[CoAFloatFeature alloc] initWithDevice:device featureName:featureName];
     else if (type == ARV_TYPE_GC_ENUMERATION)
         obj = [[CoAEnumerationFeature alloc] initWithDevice:device featureName:featureName];
-    else if (type == ARV_TYPE_GC_STRING)
+    else if (type == ARV_TYPE_GC_STRING || type == ARV_TYPE_GC_STRING_NODE || type == ARV_TYPE_GC_STRING_REG_NODE)
         obj = [[CoAStringFeature alloc] initWithDevice:device featureName:featureName];
     else if (type == ARV_TYPE_GC_FLOAT_NODE)
         obj = [[CoAFloatFeature alloc] initWithDevice:device featureName:featureName];
@@ -76,24 +76,12 @@ static NSString         *noUnitString   = @"";
     _fName = fname;
     
     _name = [self stringFromChars:arv_gc_feature_node_get_name(_featureNode)];
-    GError  *error = NULL;
-    const char  *dname = arv_gc_feature_node_get_display_name(_featureNode, &error);
-    if (error == NULL)
-        _displayName = [self stringFromChars:dname];
-    else
-        _displayName = nil;
-    error = NULL;
-    const char  *tt = arv_gc_feature_node_get_tooltip(_featureNode, &error);
-    if (error == NULL)
-        _toolTip = [self stringFromChars:tt];
-    else
-        _toolTip = nil;
-    error = NULL;
-    const char  *fd = arv_gc_feature_node_get_description(_featureNode, &error);
-    if (error == NULL)
-        _featureDescription = [self stringFromChars:fd];
-    else
-        _featureDescription = nil;
+    const char  *dname = arv_gc_feature_node_get_display_name(_featureNode);
+    _displayName = [self stringFromChars:dname];
+    const char  *tt = arv_gc_feature_node_get_tooltip(_featureNode);
+    _toolTip = [self stringFromChars:tt];
+    const char  *fd = arv_gc_feature_node_get_description(_featureNode);
+    _featureDescription = [self stringFromChars:fd];
     return self;
 }
 
@@ -171,12 +159,19 @@ static NSString         *noUnitString   = @"";
 
 - (BOOL)currentValue
 {
-    return arv_device_get_boolean_feature_value([super.device arvDeviceObject], super.fName);
+    GError  *error = NULL;
+    gboolean value = arv_device_get_boolean_feature_value([super.device arvDeviceObject], super.fName, &error);
+    if (error != NULL)
+        return NO;
+    return value;
 }
 
 - (BOOL)setBoolValue:(BOOL)value
 {
-    arv_device_set_boolean_feature_value([super.device arvDeviceObject], super.fName, value);
+    GError  *error = NULL;
+    arv_device_set_boolean_feature_value([super.device arvDeviceObject], super.fName, value, &error);
+    if (error != NULL)
+        return NO;
     return (self.currentValue == value);
 }
 
@@ -197,10 +192,10 @@ static NSString         *noUnitString   = @"";
     if (self == nil)
         return nil;
 
-    guint   num;
+    guint   num = 0;
     GError  *error = NULL;
-    const char **entries = arv_gc_enumeration_get_available_string_values((ArvGcEnumeration *)(super.featureNode), &num, &error);
-    if (error != NULL) {
+    const char **entries = arv_gc_enumeration_dup_available_string_values((ArvGcEnumeration *)(super.featureNode), &num, &error);
+    if (error != NULL || entries == NULL) {
         self = nil;
         return nil;
     }
@@ -209,6 +204,7 @@ static NSString         *noUnitString   = @"";
     for (guint i = 0 ; i < num ; i ++)
         [tmp addObject:[NSString stringWithUTF8String:entries[i]]];
     _availableValues = [NSArray arrayWithArray:tmp];
+    g_free((gpointer)entries);
     
     return self;
 }
@@ -265,8 +261,9 @@ static NSString         *noUnitString   = @"";
 - (NSString *)currentValue
 {
     NSString    *ret = nil;
-    const char  *val = arv_device_get_string_feature_value([super.device arvDeviceObject], super.fName);
-    if (val != NULL)
+    GError  *error = NULL;
+    const char  *val = arv_device_get_string_feature_value([super.device arvDeviceObject], super.fName, &error);
+    if (error == NULL && val != NULL)
         ret = [NSString stringWithUTF8String:val];
     return ret;
 }
@@ -274,7 +271,10 @@ static NSString         *noUnitString   = @"";
 - (BOOL)setStringValue:(NSString *)value
 {
     const char  *val = [value UTF8String];
-    arv_device_set_string_feature_value([super.device arvDeviceObject], super.fName, val);
+    GError  *error = NULL;
+    arv_device_set_string_feature_value([super.device arvDeviceObject], super.fName, val, &error);
+    if (error != NULL)
+        return NO;
     return [self.currentValue isEqualToString:value];
 }
 
@@ -306,7 +306,11 @@ static NSString         *noUnitString   = @"";
 
 - (double)currentValue
 {
-    return arv_device_get_float_feature_value([super.device arvDeviceObject], super.fName);
+    GError  *error = NULL;
+    double value = arv_device_get_float_feature_value([super.device arvDeviceObject], super.fName, &error);
+    if (error != NULL)
+        return 0.0;
+    return value;
 }
 
 - (BOOL)setFloatValue:(CGFloat)value
@@ -314,7 +318,10 @@ static NSString         *noUnitString   = @"";
     double  min, max;
     [self featureBoundsMin:&min Max:&max];
     if ((min <= value) && (value <= max)) {
-        arv_device_set_float_feature_value([super.device arvDeviceObject], super.fName, value);
+        GError  *error = NULL;
+        arv_device_set_float_feature_value([super.device arvDeviceObject], super.fName, value, &error);
+        if (error != NULL)
+            return NO;
         return value == self.currentValue;
     }
     return NO;
@@ -336,7 +343,12 @@ static NSString         *noUnitString   = @"";
 
 - (void)featureBoundsMin:(double *)min Max:(double *)max
 {
-    arv_device_get_float_feature_bounds([super.device arvDeviceObject], super.fName, min, max);
+    GError  *error = NULL;
+    arv_device_get_float_feature_bounds([super.device arvDeviceObject], super.fName, min, max, &error);
+    if (error != NULL) {
+        *min = 0.0;
+        *max = 0.0;
+    }
 }
 
 @end
@@ -366,7 +378,11 @@ static NSString         *noUnitString   = @"";
 
 - (NSInteger)currentValue
 {
-    return arv_device_get_integer_feature_value([super.device arvDeviceObject], super.fName);
+    GError  *error = NULL;
+    gint64 value = arv_device_get_integer_feature_value([super.device arvDeviceObject], super.fName, &error);
+    if (error != NULL)
+        return 0;
+    return value;
 }
 
 - (BOOL)setIntegerValue:(NSInteger)value
@@ -374,7 +390,10 @@ static NSString         *noUnitString   = @"";
     NSInteger   min, max;
     [self featureBoundsMin:&min Max:&max];
     if ((min <= value) && (value <= max)) {
-        arv_device_set_integer_feature_value([super.device arvDeviceObject], super.fName, value);
+        GError  *error = NULL;
+        arv_device_set_integer_feature_value([super.device arvDeviceObject], super.fName, value, &error);
+        if (error != NULL)
+            return NO;
         return value == self.currentValue;
     }
     return NO;
@@ -397,7 +416,13 @@ static NSString         *noUnitString   = @"";
 - (void)featureBoundsMin:(NSInteger *)min Max:(NSInteger *)max
 {
     gint64  mi, mx;
-    arv_device_get_integer_feature_bounds([super.device arvDeviceObject], super.fName, &mi, &mx);
+    GError  *error = NULL;
+    arv_device_get_integer_feature_bounds([super.device arvDeviceObject], super.fName, &mi, &mx, &error);
+    if (error != NULL) {
+        *min = 0;
+        *max = 0;
+        return;
+    }
     *min = mi;
     *max = mx;
 }
@@ -444,29 +469,12 @@ static NSString         *noUnitString   = @"";
 - (instancetype)initWithDevice:(CoADevice *)device featureName:(NSString *)featureName
 {
     self = [super initWithDevice:device featureName:featureName];
-    
-    registerNodeType    t = self.type;
     return self;
 }
 
 - (registerNodeType)type
 {
-    registerNodeType    ret;
-    switch (((ArvGcRegisterNode *)(super.featureNode))->type) {
-        case ARV_GC_REGISTER_NODE_TYPE_REGISTER:
-            ret = registerNodeTypeRegister;         break;
-        case ARV_GC_REGISTER_NODE_TYPE_INTEGER:
-            ret = registerNodeTypeInteger;          break;
-        case ARV_GC_REGISTER_NODE_TYPE_MASKED_INTEGER:
-            ret = registerNodeTypeMaskedInteger;    break;
-        case ARV_GC_REGISTER_NODE_TYPE_FLOAT:
-            ret = registerNodeTypeFloat;            break;
-        case ARV_GC_REGISTER_NODE_TYPE_STRING:
-            ret = registerNodeTypeString;           break;
-        case ARV_GC_REGISTER_NODE_TYPE_STRUCT_REGISTER:
-            ret = registerNodeTypeStructRegister;
-    }
-    return ret;
+    return registerNodeTypeRegister;
 }
 
     
