@@ -85,13 +85,13 @@
 		1802B2A822DDB9EA00CD9E99 /* Cocaravis.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Cocaravis.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		1802B2AB22DDB9EA00CD9E99 /* Cocaravis.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Cocaravis.h; sourceTree = "<group>"; };
 		1802B2AC22DDB9EA00CD9E99 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		1802B2B422DDBA2000CD9E99 /* libaravis-0.8.0.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = "libaravis-0.8.0.dylib"; path = "../../../../../../opt/homebrew/lib/libaravis-0.8.0.dylib"; sourceTree = "<group>"; };
-		1802B2B622DDBA3700CD9E99 /* libgio-2.0.0.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = "libgio-2.0.0.dylib"; path = "../../../../../../opt/homebrew/lib/libgio-2.0.0.dylib"; sourceTree = "<group>"; };
-		1802B2B822DDBA4900CD9E99 /* libglib-2.0.0.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = "libglib-2.0.0.dylib"; path = "../../../../../../opt/homebrew/lib/libglib-2.0.0.dylib"; sourceTree = "<group>"; };
-		1802B2BA22DDBA5C00CD9E99 /* libgmodule-2.0.0.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = "libgmodule-2.0.0.dylib"; path = "../../../../../../opt/homebrew/lib/libgmodule-2.0.0.dylib"; sourceTree = "<group>"; };
-		1802B2BC22DDBA6A00CD9E99 /* libgobject-2.0.0.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = "libgobject-2.0.0.dylib"; path = "../../../../../../opt/homebrew/lib/libgobject-2.0.0.dylib"; sourceTree = "<group>"; };
-		1802B2BE22DDBA7B00CD9E99 /* libgthread-2.0.0.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = "libgthread-2.0.0.dylib"; path = "../../../../../../opt/homebrew/lib/libgthread-2.0.0.dylib"; sourceTree = "<group>"; };
-		1802B2C022DDBA8B00CD9E99 /* libintl.8.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libintl.8.dylib; path = ../../../../../../opt/homebrew/opt/gettext/lib/libintl.8.dylib; sourceTree = "<group>"; };
+		1802B2B422DDBA2000CD9E99 /* libaravis-0.8.0.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = "libaravis-0.8.0.dylib"; path = /opt/homebrew/lib/libaravis-0.8.0.dylib; sourceTree = "<absolute>"; };
+		1802B2B622DDBA3700CD9E99 /* libgio-2.0.0.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = "libgio-2.0.0.dylib"; path = /opt/homebrew/lib/libgio-2.0.0.dylib; sourceTree = "<absolute>"; };
+		1802B2B822DDBA4900CD9E99 /* libglib-2.0.0.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = "libglib-2.0.0.dylib"; path = /opt/homebrew/lib/libglib-2.0.0.dylib; sourceTree = "<absolute>"; };
+		1802B2BA22DDBA5C00CD9E99 /* libgmodule-2.0.0.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = "libgmodule-2.0.0.dylib"; path = /opt/homebrew/lib/libgmodule-2.0.0.dylib; sourceTree = "<absolute>"; };
+		1802B2BC22DDBA6A00CD9E99 /* libgobject-2.0.0.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = "libgobject-2.0.0.dylib"; path = /opt/homebrew/lib/libgobject-2.0.0.dylib; sourceTree = "<absolute>"; };
+		1802B2BE22DDBA7B00CD9E99 /* libgthread-2.0.0.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = "libgthread-2.0.0.dylib"; path = /opt/homebrew/lib/libgthread-2.0.0.dylib; sourceTree = "<absolute>"; };
+		1802B2C022DDBA8B00CD9E99 /* libintl.8.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libintl.8.dylib; path = /opt/homebrew/opt/gettext/lib/libintl.8.dylib; sourceTree = "<absolute>"; };
 		1802B2C822DDBBE200CD9E99 /* CoACameraFeature.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CoACameraFeature.h; sourceTree = "<group>"; };
 		1802B2C922DDBBE200CD9E99 /* CoAFrameAverager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CoAFrameAverager.h; sourceTree = "<group>"; };
 		1802B2CA22DDBBE200CD9E99 /* CoADevice.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CoADevice.m; sourceTree = "<group>"; };
@@ -127,7 +127,7 @@
 		1802B31D22DDC3DD00CD9E99 /* TestViewer.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TestViewer.m; sourceTree = "<group>"; };
 		1809B2D622E6DA58000BAFCA /* Cocaravis.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocaravis.framework; path = binary/Cocaravis.framework; sourceTree = "<group>"; };
 		1898888D22E59F5B00EA73C8 /* Cocaravis.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocaravis.framework; path = binary/Cocaravis.framework; sourceTree = "<group>"; };
-		18A9653E22DFD591009DCD0D /* libusb-1.0.0.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = "libusb-1.0.0.dylib"; path = "../../../../../../opt/homebrew/lib/libusb-1.0.0.dylib"; sourceTree = "<group>"; };
+		18A9653E22DFD591009DCD0D /* libusb-1.0.0.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = "libusb-1.0.0.dylib"; path = /opt/homebrew/lib/libusb-1.0.0.dylib; sourceTree = "<absolute>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
