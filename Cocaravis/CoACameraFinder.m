@@ -120,6 +120,12 @@ static NSArray          *interfaces = nil;
     return _cameraNameList;
 }
 
+- (void)refreshDeviceList
+{
+    _cameraNameList = nil;
+    arv_update_device_list();
+}
+
 - (void)shutdown
 {
     arv_shutdown();

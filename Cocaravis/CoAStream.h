@@ -56,6 +56,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)attachFrameAverager;
 
 - (void)stopStream;
+- (void)teardownStream;
 
 @end
 

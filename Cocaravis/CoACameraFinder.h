@@ -40,6 +40,10 @@ NS_ASSUME_NONNULL_BEGIN
 
 + (CoACameraFinder *)sharedCameraFinder;
 
+/// Clear the cached device list so the next access to `connectedDevices`
+/// rescans the bus (USB / GigE).
+- (void)refreshDeviceList;
+
 - (void)shutdown;
 
 @end

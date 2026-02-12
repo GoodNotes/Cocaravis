@@ -129,16 +129,21 @@ void    streamCallback(void *user_data,
             _currentFrameRate = 1.0 / interval;
     }
     _lastTimeStamp = timeStamp;
-    
-    if (! self.isRunning) {
-        arv_stream_set_emit_signals(self.stream, NO);
-        g_object_unref(self.stream);
-    }
 }
 
 - (void)stopStream
 {
     self.isRunning = NO;
+}
+
+- (void)teardownStream
+{
+    self.isRunning = NO;
+    if (self.stream != NULL) {
+        arv_stream_set_emit_signals(self.stream, NO);
+        g_object_unref(self.stream);
+        self.stream = NULL;
+    }
 }
 
 
