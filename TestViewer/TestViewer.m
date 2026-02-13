@@ -8,12 +8,12 @@
 
 #import "TestViewer.h"
 
-@interface TestViewer () <CALayerDelegate>
-@property (readwrite) CALayer           *bgLayer;
-@property (readwrite) CALayer           *imageLayer;
-@property (readwrite) NSBitmapImageRep  *imagerep;
+@interface                              TestViewer () <CALayerDelegate>
+@property (readwrite) CALayer          *bgLayer;
+@property (readwrite) CALayer          *imageLayer;
+@property (readwrite) NSBitmapImageRep *imagerep;
 @property (readwrite) CGImageRef        cgimage;
-@property (readonly) CIContext          *context;
+@property (readonly) CIContext         *context;
 
 - (CALayer *)createNewLayerForFullView;
 - (void)setNeedsDisplayOnMainThread;
@@ -22,16 +22,16 @@
 
 @implementation TestViewer
 
--(void)awakeFromNib
+- (void)awakeFromNib
 {
     //  using CALayser to display NSBitmapImageRep object
     self.wantsLayer = YES;
-    
+
     _bgLayer = [self createNewLayerForFullView];
-    CGColorRef  backColor = CGColorCreateGenericGray(0.5, 1.0);
+    CGColorRef backColor = CGColorCreateGenericGray(0.5, 1.0);
     _bgLayer.backgroundColor = backColor;
     CGColorRelease(backColor);
-    
+
     _cgimage = NULL;
     _imageLayer = [self createNewLayerForFullView];
     [_bgLayer addSublayer:_imageLayer];
@@ -45,7 +45,7 @@
 
     if ([[NSThread currentThread] isMainThread])
         [self setNeedsDisplayOnMainThread];
-    else    //  if execution reaches the line below, memory allocation on _imagerep object will be leaked
+    else //  if execution reaches the line below, memory allocation on _imagerep object will be leaked
         [self performSelectorOnMainThread:@selector(setNeedsDisplayOnMainThread) withObject:nil waitUntilDone:NO];
 }
 
@@ -58,7 +58,7 @@
 {
     //  autoreleasepool for CGImage should be bigger range?
     @autoreleasepool {
-        NSRect  brect = self.bounds;
+        NSRect brect = self.bounds;
         CGContextSaveGState(context);
         CGContextClipToRects(context, &brect, 1);
         CGContextSetRGBFillColor(context, 0.0, 0.0, 0.0, 1.0);

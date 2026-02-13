@@ -10,19 +10,19 @@
 
 #import "CoACameraFinder.h"
 
-static CoACameraFinder  *sharedFinder = nil;
-static NSArray          *interfaces = nil;
+static CoACameraFinder *sharedFinder = nil;
+static NSArray         *interfaces = nil;
 
-#pragma mark    *********** CoADeviceSignature  **********
+#pragma mark *********** CoADeviceSignature  **********
 
-@interface CoADeviceSignature ()
-@property (readwrite) NSString      *deviceId;
-@property (readwrite) NSString      *physicalId;
-@property (readwrite) NSString      *model;
-@property (readwrite) NSString      *serialNumber;
-@property (readwrite) NSString      *vendor;
-@property (readwrite) NSString      *address;
-@property (readwrite) NSString      *protocol;
+@interface                      CoADeviceSignature ()
+@property (readwrite) NSString *deviceId;
+@property (readwrite) NSString *physicalId;
+@property (readwrite) NSString *model;
+@property (readwrite) NSString *serialNumber;
+@property (readwrite) NSString *vendor;
+@property (readwrite) NSString *address;
+@property (readwrite) NSString *protocol;
 @end
 @implementation CoADeviceSignature
 
@@ -33,27 +33,25 @@ static NSArray          *interfaces = nil;
     [str appendFormat:@"\tID %@", self.physicalId];
     [str appendFormat:@"\tModel %@", self.model];
     [str appendFormat:@"\tSerial number %@", self.serialNumber];
-    [str appendFormat:@"\tVender %@", self.vendor];
+    [str appendFormat:@"\tVendor %@", self.vendor];
     [str appendFormat:@"\tAddress %@", self.address];
     [str appendFormat:@"\tProtocol %@", self.protocol];
     return [NSString stringWithString:str];
 }
 @end
 
+#pragma mark **********  CoACameraFinder ************
 
-#pragma mark    **********  CoACameraFinder ************
-
-@interface CoACameraFinder ()
-@property NSArray   *cameraNameList;
+@interface         CoACameraFinder ()
+@property NSArray *cameraNameList;
 
 - (NSString *)stringFromCStringNullChecking:(const char *)cstr;
 
 @end
 
-
 @implementation CoACameraFinder
 
-//  CoACameraFinder is a simple simgleton, can not be subclassed.
+//  CoACameraFinder is a simple singleton, can not be subclassed.
 + (CoACameraFinder *)sharedCameraFinder
 {
     if (sharedFinder == nil)
@@ -67,20 +65,20 @@ static NSArray          *interfaces = nil;
 
     arv_update_device_list();
     _cameraNameList = nil;
-    
+
     return self;
 }
 
 - (NSArray<NSString *> *)interfaceIdentifiers
 {
     if (interfaces == nil) {
-        unsigned        n = arv_get_n_interfaces();
+        unsigned n = arv_get_n_interfaces();
         if (n == 0)
             return nil;
-        NSMutableArray  *iid = [NSMutableArray arrayWithCapacity:n];
-        for (unsigned i = 0 ; i < n ; i ++) {
-            const char  *iname = arv_get_interface_id(i);
-            NSString    *str = [NSString stringWithCString:iname encoding:NSASCIIStringEncoding];
+        NSMutableArray *iid = [NSMutableArray arrayWithCapacity:n];
+        for (unsigned i = 0; i < n; i++) {
+            const char *iname = arv_get_interface_id(i);
+            NSString   *str = [NSString stringWithCString:iname encoding:NSASCIIStringEncoding];
             [iid addObject:str];
         }
         interfaces = [NSArray arrayWithArray:iid];
@@ -90,8 +88,8 @@ static NSArray          *interfaces = nil;
 
 - (NSString *)stringFromCStringNullChecking:(const char *)cstr
 {
-    static const char   *placeHolder = "";
-    const char  *tmp;
+    static const char *placeHolder = "";
+    const char        *tmp;
     if (cstr != NULL)
         tmp = cstr;
     else
@@ -102,10 +100,10 @@ static NSArray          *interfaces = nil;
 - (NSArray<CoADeviceSignature *> *)connectedDevices
 {
     if (_cameraNameList == nil) {
-        NSMutableArray  *temp = [NSMutableArray new];
+        NSMutableArray *temp = [NSMutableArray new];
         unsigned int    num = arv_get_n_devices();
-        for (unsigned i = 0 ; i < num ; i ++) {
-            CoADeviceSignature  *cprop = [CoADeviceSignature new];
+        for (unsigned i = 0; i < num; i++) {
+            CoADeviceSignature *cprop = [CoADeviceSignature new];
             cprop.deviceId = [self stringFromCStringNullChecking:arv_get_device_id(i)];
             cprop.physicalId = [self stringFromCStringNullChecking:arv_get_device_physical_id(i)];
             cprop.model = [self stringFromCStringNullChecking:arv_get_device_model(i)];
@@ -132,4 +130,3 @@ static NSArray          *interfaces = nil;
 }
 
 @end
-

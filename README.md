@@ -196,7 +196,7 @@ If you got object (not nil), create stream and set delegate object
 ###start transfer
 
 ```objective-c
-    [camera startAquisition];
+    [camera startAcquisition];
 ```
 
 then you can receive image buffer in a delegate method

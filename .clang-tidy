@@ -1,0 +1,6 @@
+Checks: >
+  -*,
+  objc-*,
+  readability-identifier-naming,
+  bugprone-*,
+  -bugprone-easily-swappable-parameters

@@ -11,11 +11,11 @@
 #import "CoACameraFeature.h"
 #import "CoADevice.h"
 
-static NSString         *noUnitString   = @"";
+static NSString *noUnitString = @"";
 
-@interface CoACameraFeature ()
-@property (readonly) ArvGcFeatureNode   *featureNode;
-@property (readonly) const char         *fName;
+@interface                             CoACameraFeature ()
+@property (readonly) ArvGcFeatureNode *featureNode;
+@property (readonly) const char       *fName;
 
 - (NSString *)stringFromChars:(const char *)chars;
 - (NSString *)unitString;
@@ -31,14 +31,14 @@ static NSString         *noUnitString   = @"";
 
 + (instancetype)cameraFeatureWithDevice:(CoADevice *)device featureName:(NSString *)featureName
 {
-    const char  *fname = [featureName UTF8String];
-    ArvGcNode   *fnode = arv_device_get_feature([device arvDeviceObject], fname);
-    GType   type = G_OBJECT_TYPE(fnode);
-    if (! g_type_is_a(type, ARV_TYPE_GC_FEATURE_NODE))
-//  MACRO 'ARV_IS_GC_FEATURE_NODE' causes warning 'ambiguous macro expansion'
+    const char *fname = [featureName UTF8String];
+    ArvGcNode  *fnode = arv_device_get_feature([device arvDeviceObject], fname);
+    GType       type = G_OBJECT_TYPE(fnode);
+    if (!g_type_is_a(type, ARV_TYPE_GC_FEATURE_NODE))
+        //  MACRO 'ARV_IS_GC_FEATURE_NODE' causes warning 'ambiguous macro expansion'
         return nil;
 
-    id      obj = nil;
+    id obj = nil;
     if (type == ARV_TYPE_GC_BOOLEAN)
         obj = [[CoABooleanFeature alloc] initWithDevice:device featureName:featureName];
     else if (type == ARV_TYPE_GC_FLOAT_NODE)
@@ -47,8 +47,6 @@ static NSString         *noUnitString   = @"";
         obj = [[CoAEnumerationFeature alloc] initWithDevice:device featureName:featureName];
     else if (type == ARV_TYPE_GC_STRING || type == ARV_TYPE_GC_STRING_NODE || type == ARV_TYPE_GC_STRING_REG_NODE)
         obj = [[CoAStringFeature alloc] initWithDevice:device featureName:featureName];
-    else if (type == ARV_TYPE_GC_FLOAT_NODE)
-        obj = [[CoAFloatFeature alloc] initWithDevice:device featureName:featureName];
     else if (type == ARV_TYPE_GC_INTEGER_NODE)
         obj = [[CoAIntegerFeature alloc] initWithDevice:device featureName:featureName];
     else if (type == ARV_TYPE_GC_COMMAND)
@@ -58,45 +56,45 @@ static NSString         *noUnitString   = @"";
     else
         //  should be added other types.
 
-    if (obj == nil)
-        NSLog(@"object is nil %@ type %s", featureName, g_type_name(type));
+        if (obj == nil)
+            NSLog(@"object is nil %@ type %s", featureName, g_type_name(type));
     return obj;
 }
 
 - (instancetype)initWithDevice:(CoADevice *)device featureName:(NSString *)featureName
 {
-    const char  *fname = [featureName UTF8String];
-    ArvGcNode   *fnode = arv_device_get_feature([device arvDeviceObject], fname);
-    if (! g_type_is_a(G_TYPE_FROM_INSTANCE(fnode), ARV_TYPE_GC_FEATURE_NODE))
+    const char *fname = [featureName UTF8String];
+    ArvGcNode  *fnode = arv_device_get_feature([device arvDeviceObject], fname);
+    if (!g_type_is_a(G_TYPE_FROM_INSTANCE(fnode), ARV_TYPE_GC_FEATURE_NODE))
         return nil;
-    
+
     self = [super init];
     _featureNode = (ArvGcFeatureNode *)fnode;
     _device = device;
     _fName = fname;
-    
+
     _name = [self stringFromChars:arv_gc_feature_node_get_name(_featureNode)];
-    const char  *dname = arv_gc_feature_node_get_display_name(_featureNode);
+    const char *dname = arv_gc_feature_node_get_display_name(_featureNode);
     _displayName = [self stringFromChars:dname];
-    const char  *tt = arv_gc_feature_node_get_tooltip(_featureNode);
+    const char *tt = arv_gc_feature_node_get_tooltip(_featureNode);
     _toolTip = [self stringFromChars:tt];
-    const char  *fd = arv_gc_feature_node_get_description(_featureNode);
+    const char *fd = arv_gc_feature_node_get_description(_featureNode);
     _featureDescription = [self stringFromChars:fd];
     return self;
 }
 
 - (NSString *)stringFromChars:(const char *)chars
 {
-    NSString    *ret = nil;
+    NSString *ret = nil;
     if ((chars != NULL) && (*chars != '\0'))
         ret = [NSString stringWithUTF8String:chars];
     return ret;
 }
 
-- (BOOL)isImpelemted
+- (BOOL)isImplemented
 {
-    GError      *error = NULL;
-    gboolean    yn = arv_gc_feature_node_is_implemented(_featureNode, &error);
+    GError  *error = NULL;
+    gboolean yn = arv_gc_feature_node_is_implemented(_featureNode, &error);
     if (error == NULL)
         return yn;
     return NO;
@@ -104,8 +102,8 @@ static NSString         *noUnitString   = @"";
 
 - (BOOL)isAvailable
 {
-    GError      *error = NULL;
-    gboolean    yn = arv_gc_feature_node_is_available(_featureNode, &error);
+    GError  *error = NULL;
+    gboolean yn = arv_gc_feature_node_is_available(_featureNode, &error);
     if (error == NULL)
         return yn;
     return NO;
@@ -113,8 +111,8 @@ static NSString         *noUnitString   = @"";
 
 - (BOOL)isLocked
 {
-    GError      *error = NULL;
-    gboolean    yn = arv_gc_feature_node_is_locked(_featureNode, &error);
+    GError  *error = NULL;
+    gboolean yn = arv_gc_feature_node_is_locked(_featureNode, &error);
     if (error == NULL)
         return yn;
     return NO;
@@ -126,11 +124,11 @@ static NSString         *noUnitString   = @"";
     if (nodeList == NULL)
         return noUnitString;
     unsigned num = arv_dom_node_list_get_length(nodeList);
-    for (unsigned i = 0 ; i < num ; i ++) {
+    for (unsigned i = 0; i < num; i++) {
         ArvGcPropertyNode *uni = (ArvGcPropertyNode *)arv_dom_node_list_get_item(nodeList, i);
         if (arv_gc_property_node_get_node_type(uni) == ARV_GC_PROPERTY_NODE_TYPE_UNIT) {
-            GError  *error = NULL;
-            const char  *unitchars = arv_gc_property_node_get_string(uni, &error);
+            GError     *error = NULL;
+            const char *unitchars = arv_gc_property_node_get_string(uni, &error);
             if ((unitchars == NULL) || (error != NULL))
                 return noUnitString;
             return [NSString stringWithUTF8String:unitchars];
@@ -141,14 +139,14 @@ static NSString         *noUnitString   = @"";
 
 - (NSString *)description
 {
-    NSString    *gtype = [NSString stringWithUTF8String:g_type_name(G_OBJECT_TYPE(self.featureNode))];
-    return [NSString stringWithFormat:@"Feature name:%@(%@) type:%@ Description:%@", self.name, self.displayName, gtype, self.featureDescription];
+    NSString *gtype = [NSString stringWithUTF8String:g_type_name(G_OBJECT_TYPE(self.featureNode))];
+    return [NSString stringWithFormat:@"Feature name:%@(%@) type:%@ Description:%@", self.name, self.displayName, gtype,
+                                      self.featureDescription];
 }
 
 @end
 
-
-#pragma mark    *************   implementation of CoABooleanFeature ***********
+#pragma mark *************   implementation of CoABooleanFeature ***********
 
 @implementation CoABooleanFeature
 
@@ -168,7 +166,7 @@ static NSString         *noUnitString   = @"";
 
 - (BOOL)setBoolValue:(BOOL)value
 {
-    GError  *error = NULL;
+    GError *error = NULL;
     arv_device_set_boolean_feature_value([super.device arvDeviceObject], super.fName, value, &error);
     if (error != NULL)
         return NO;
@@ -177,7 +175,7 @@ static NSString         *noUnitString   = @"";
 
 @end
 
-#pragma mark    *************   implementation of CoAEnumerationFeature ***********
+#pragma mark *************   implementation of CoAEnumerationFeature ***********
 
 @implementation CoAEnumerationFeature
 
@@ -192,33 +190,34 @@ static NSString         *noUnitString   = @"";
     if (self == nil)
         return nil;
 
-    guint   num = 0;
-    GError  *error = NULL;
-    const char **entries = arv_gc_enumeration_dup_available_string_values((ArvGcEnumeration *)(super.featureNode), &num, &error);
+    guint        num = 0;
+    GError      *error = NULL;
+    const char **entries =
+        arv_gc_enumeration_dup_available_string_values((ArvGcEnumeration *)(super.featureNode), &num, &error);
     if (error != NULL || entries == NULL) {
         self = nil;
         return nil;
     }
-    
-    NSMutableArray  *tmp = [NSMutableArray arrayWithCapacity:num];
-    for (guint i = 0 ; i < num ; i ++)
+
+    NSMutableArray *tmp = [NSMutableArray arrayWithCapacity:num];
+    for (guint i = 0; i < num; i++)
         [tmp addObject:[NSString stringWithUTF8String:entries[i]]];
     _availableValues = [NSArray arrayWithArray:tmp];
     g_free((gpointer)entries);
-    
+
     return self;
 }
 
 - (NSString *)currentValue
 {
-    GError  *error = NULL;
-    const char  *strval = arv_gc_enumeration_get_string_value((ArvGcEnumeration *)(super.featureNode), &error);
+    GError     *error = NULL;
+    const char *strval = arv_gc_enumeration_get_string_value((ArvGcEnumeration *)(super.featureNode), &error);
     if (error != NULL)
         return nil;
-    
-    NSString    *val = [NSString stringWithUTF8String:strval];
-    __block NSString    *ret = nil;
-    [self.availableValues enumerateObjectsUsingBlock:^(NSString * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+
+    NSString         *val = [NSString stringWithUTF8String:strval];
+    __block NSString *ret = nil;
+    [self.availableValues enumerateObjectsUsingBlock:^(NSString *_Nonnull obj, NSUInteger idx, BOOL *_Nonnull stop) {
         if ([val isEqualToString:obj]) {
             *stop = YES;
             ret = obj;
@@ -229,8 +228,8 @@ static NSString         *noUnitString   = @"";
 
 - (BOOL)setEnumEntryValue:(NSString *)value
 {
-    __block NSString    *ret = nil;
-    [self.availableValues enumerateObjectsUsingBlock:^(NSString * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+    __block NSString *ret = nil;
+    [self.availableValues enumerateObjectsUsingBlock:^(NSString *_Nonnull obj, NSUInteger idx, BOOL *_Nonnull stop) {
         if ([value isEqualToString:obj]) {
             *stop = YES;
             ret = obj;
@@ -238,7 +237,7 @@ static NSString         *noUnitString   = @"";
     }];
     if (ret == nil)
         return NO;
-    GError  *error = NULL;
+    GError *error = NULL;
     arv_gc_enumeration_set_string_value((ArvGcEnumeration *)(super.featureNode), [ret UTF8String], &error);
     if (error != NULL)
         return NO;
@@ -247,9 +246,7 @@ static NSString         *noUnitString   = @"";
 
 @end
 
-
-
-#pragma mark    *************   implementation of CoAStringFeature ***********
+#pragma mark *************   implementation of CoAStringFeature ***********
 
 @implementation CoAStringFeature
 
@@ -260,9 +257,9 @@ static NSString         *noUnitString   = @"";
 
 - (NSString *)currentValue
 {
-    NSString    *ret = nil;
-    GError  *error = NULL;
-    const char  *val = arv_device_get_string_feature_value([super.device arvDeviceObject], super.fName, &error);
+    NSString   *ret = nil;
+    GError     *error = NULL;
+    const char *val = arv_device_get_string_feature_value([super.device arvDeviceObject], super.fName, &error);
     if (error == NULL && val != NULL)
         ret = [NSString stringWithUTF8String:val];
     return ret;
@@ -270,8 +267,8 @@ static NSString         *noUnitString   = @"";
 
 - (BOOL)setStringValue:(NSString *)value
 {
-    const char  *val = [value UTF8String];
-    GError  *error = NULL;
+    const char *val = [value UTF8String];
+    GError     *error = NULL;
     arv_device_set_string_feature_value([super.device arvDeviceObject], super.fName, val, &error);
     if (error != NULL)
         return NO;
@@ -280,8 +277,7 @@ static NSString         *noUnitString   = @"";
 
 @end
 
-
-#pragma mark    *************   implementation of CoAFloatFeature ***********
+#pragma mark *************   implementation of CoAFloatFeature ***********
 
 @interface CoAFloatFeature ()
 - (void)featureBoundsMin:(double *)min Max:(double *)max;
@@ -306,8 +302,8 @@ static NSString         *noUnitString   = @"";
 
 - (double)currentValue
 {
-    GError  *error = NULL;
-    double value = arv_device_get_float_feature_value([super.device arvDeviceObject], super.fName, &error);
+    GError *error = NULL;
+    double  value = arv_device_get_float_feature_value([super.device arvDeviceObject], super.fName, &error);
     if (error != NULL)
         return 0.0;
     return value;
@@ -315,10 +311,10 @@ static NSString         *noUnitString   = @"";
 
 - (BOOL)setFloatValue:(CGFloat)value
 {
-    double  min, max;
+    double min, max;
     [self featureBoundsMin:&min Max:&max];
     if ((min <= value) && (value <= max)) {
-        GError  *error = NULL;
+        GError *error = NULL;
         arv_device_set_float_feature_value([super.device arvDeviceObject], super.fName, value, &error);
         if (error != NULL)
             return NO;
@@ -329,21 +325,21 @@ static NSString         *noUnitString   = @"";
 
 - (double)min
 {
-    double  min, max;
+    double min, max;
     [self featureBoundsMin:&min Max:&max];
     return min;
 }
 
 - (double)max
 {
-    double  min, max;
+    double min, max;
     [self featureBoundsMin:&min Max:&max];
     return max;
 }
 
 - (void)featureBoundsMin:(double *)min Max:(double *)max
 {
-    GError  *error = NULL;
+    GError *error = NULL;
     arv_device_get_float_feature_bounds([super.device arvDeviceObject], super.fName, min, max, &error);
     if (error != NULL) {
         *min = 0.0;
@@ -353,7 +349,7 @@ static NSString         *noUnitString   = @"";
 
 @end
 
-#pragma mark    *************   implementation of CoAIntegerFeature ***********
+#pragma mark *************   implementation of CoAIntegerFeature ***********
 
 @interface CoAIntegerFeature ()
 - (void)featureBoundsMin:(NSInteger *)min Max:(NSInteger *)max;
@@ -371,15 +367,15 @@ static NSString         *noUnitString   = @"";
     self = [super initWithDevice:device featureName:featureName];
     if (self == nil)
         return nil;
-    
+
     _unit = [super unitString];
     return self;
 }
 
 - (NSInteger)currentValue
 {
-    GError  *error = NULL;
-    gint64 value = arv_device_get_integer_feature_value([super.device arvDeviceObject], super.fName, &error);
+    GError *error = NULL;
+    gint64  value = arv_device_get_integer_feature_value([super.device arvDeviceObject], super.fName, &error);
     if (error != NULL)
         return 0;
     return value;
@@ -387,10 +383,10 @@ static NSString         *noUnitString   = @"";
 
 - (BOOL)setIntegerValue:(NSInteger)value
 {
-    NSInteger   min, max;
+    NSInteger min, max;
     [self featureBoundsMin:&min Max:&max];
     if ((min <= value) && (value <= max)) {
-        GError  *error = NULL;
+        GError *error = NULL;
         arv_device_set_integer_feature_value([super.device arvDeviceObject], super.fName, value, &error);
         if (error != NULL)
             return NO;
@@ -401,14 +397,14 @@ static NSString         *noUnitString   = @"";
 
 - (NSInteger)min
 {
-    NSInteger   min, max;
+    NSInteger min, max;
     [self featureBoundsMin:&min Max:&max];
     return min;
 }
 
 - (NSInteger)max
 {
-    NSInteger   min, max;
+    NSInteger min, max;
     [self featureBoundsMin:&min Max:&max];
     return max;
 }
@@ -416,7 +412,7 @@ static NSString         *noUnitString   = @"";
 - (void)featureBoundsMin:(NSInteger *)min Max:(NSInteger *)max
 {
     gint64  mi, mx;
-    GError  *error = NULL;
+    GError *error = NULL;
     arv_device_get_integer_feature_bounds([super.device arvDeviceObject], super.fName, &mi, &mx, &error);
     if (error != NULL) {
         *min = 0;
@@ -427,15 +423,13 @@ static NSString         *noUnitString   = @"";
     *max = mx;
 }
 
-
 @end
 
+#pragma mark *************   implementation of CoACommandFeature ***********
 
-#pragma mark    *************   implementation of CoACommandFeature ***********
-               
 @interface CoACommandFeature ()
 @end
-               
+
 @implementation CoACommandFeature
 
 + (NSString *)genicamNodeName
@@ -445,15 +439,14 @@ static NSString         *noUnitString   = @"";
 
 - (BOOL)execute
 {
-    GError  *error = NULL;
+    GError *error = NULL;
     arv_gc_command_execute((ArvGcCommand *)(super.featureNode), &error);
     return (error == NULL);
 }
 
 @end
 
-
-#pragma mark    *************   implementation of CoARegisterFeature ***********
+#pragma mark *************   implementation of CoARegisterFeature ***********
 
 @interface CoARegisterFeature ()
 
@@ -477,5 +470,4 @@ static NSString         *noUnitString   = @"";
     return registerNodeTypeRegister;
 }
 
-    
 @end

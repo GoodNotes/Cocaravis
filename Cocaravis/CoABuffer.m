@@ -11,21 +11,20 @@
 #import "CoABuffer.h"
 #import "CoAPixelFormat.h"
 
-static NSInteger    CoABufferStatusFromArvStatus(int arvStatus);
-static NSInteger    CoABufferPayloadTypeFromArvPalyloadType(int type);
+static NSInteger CoABufferStatusFromArvStatus(int arvStatus);
+static NSInteger CoABufferPayloadTypeFromArvPayloadType(int type);
 
-
-@interface CoABuffer ()
-@property (readwrite) CoABufferStatus       status;
-@property (readwrite) CoABufferPayloadType  payloadType;
-@property (readwrite) NSUInteger            timeStamp;
-@property (readwrite) NSUInteger            frameId;
-@property (readwrite) ArvBuffer             *buffer;
-@property (readwrite) NSData                *content;
+@interface                                 CoABuffer ()
+@property (readwrite) CoABufferStatus      status;
+@property (readwrite) CoABufferPayloadType payloadType;
+@property (readwrite) NSUInteger           timeStamp;
+@property (readwrite) NSUInteger           frameId;
+@property (readwrite) ArvBuffer           *buffer;
+@property (readwrite) NSData              *content;
 
 @end
 
-#pragma mark    *********** CoABuffer   ***************
+#pragma mark *********** CoABuffer   ***************
 
 @implementation CoABuffer
 
@@ -41,11 +40,11 @@ static NSInteger    CoABufferPayloadTypeFromArvPalyloadType(int type);
     self = [super init];
     _buffer = buffer;
     _status = CoABufferStatusFromArvStatus(arv_buffer_get_status(buffer));
-    _payloadType = CoABufferPayloadTypeFromArvPalyloadType(arv_buffer_get_payload_type(buffer));
+    _payloadType = CoABufferPayloadTypeFromArvPayloadType(arv_buffer_get_payload_type(buffer));
     _timeStamp = arv_buffer_get_timestamp(buffer);
     _frameId = arv_buffer_get_frame_id(buffer);
     size_t      contentSize;
-    const void  *tmp = arv_buffer_get_data(buffer, &contentSize);
+    const void *tmp = arv_buffer_get_data(buffer, &contentSize);
     _content = [NSData dataWithBytesNoCopy:(void *)tmp length:contentSize freeWhenDone:NO];
     return self;
 }
@@ -61,15 +60,12 @@ static NSInteger    CoABufferPayloadTypeFromArvPalyloadType(int type);
     return self;
 }
 
-
 @end
 
-
-#pragma mark    *********** CoAImageBuffer   ************
+#pragma mark *********** CoAImageBuffer   ************
 
 @interface CoAImageBuffer ()
 @end
-
 
 @implementation CoAImageBuffer
 
@@ -77,8 +73,8 @@ static NSInteger    CoABufferPayloadTypeFromArvPalyloadType(int type);
 {
     self = [super initWithArvBuffer:buffer];
     _pixelFormat = (UInt32)arv_buffer_get_image_pixel_format(buffer);
-    gint    width = arv_buffer_get_image_width(buffer);
-    gint    height = arv_buffer_get_image_height(buffer);
+    gint width = arv_buffer_get_image_width(buffer);
+    gint height = arv_buffer_get_image_height(buffer);
     _imageSize = NSMakeSize(width * 1.0, height * 1.0);
     return self;
 }
@@ -91,12 +87,10 @@ static NSInteger    CoABufferPayloadTypeFromArvPalyloadType(int type);
     return self;
 }
 
-
 - (NSData *)imageData
 {
-    return self.content;//[NSData dataWithBytes:self.content.bytes length:self.content.length];
+    return self.content; //[NSData dataWithBytes:self.content.bytes length:self.content.length];
 }
-
 
 - (UInt8 *)rawImageBytes
 {
@@ -105,54 +99,70 @@ static NSInteger    CoABufferPayloadTypeFromArvPalyloadType(int type);
 
 @end
 
-
 //  these functions are very redundant, but necessary not to include arv.h
 
-static NSInteger    CoABufferStatusFromArvStatus(int arvStatus)
+static NSInteger CoABufferStatusFromArvStatus(int arvStatus)
 {
-    NSInteger   ret = CoABufferStatusUnknown;
+    NSInteger ret = CoABufferStatusUnknown;
     switch (arvStatus) {
-        case ARV_BUFFER_STATUS_SUCCESS:
-            ret = CoABufferStatusSuccsess;          break;
-        case ARV_BUFFER_STATUS_CLEARED:
-            ret = CoABufferStatusCleared;           break;
-        case ARV_BUFFER_STATUS_TIMEOUT:
-            ret = CoABufferStatusTimeOut;           break;
-        case ARV_BUFFER_STATUS_MISSING_PACKETS:
-            ret = CoABufferStatusMissingPackets;    break;
-        case ARV_BUFFER_STATUS_WRONG_PACKET_ID:
-            ret = CoABufferStatusWrongPacketId;     break;
-        case ARV_BUFFER_STATUS_SIZE_MISMATCH:
-            ret = CoABufferStatusSizeMissMatch;     break;
-        case ARV_BUFFER_STATUS_FILLING:
-            ret = CoABufferStatusFilling;           break;
-        case ARV_BUFFER_STATUS_ABORTED:
-            ret = CoABufferStatusAborted;           break;
+    case ARV_BUFFER_STATUS_SUCCESS:
+        ret = CoABufferStatusSuccess;
+        break;
+    case ARV_BUFFER_STATUS_CLEARED:
+        ret = CoABufferStatusCleared;
+        break;
+    case ARV_BUFFER_STATUS_TIMEOUT:
+        ret = CoABufferStatusTimeOut;
+        break;
+    case ARV_BUFFER_STATUS_MISSING_PACKETS:
+        ret = CoABufferStatusMissingPackets;
+        break;
+    case ARV_BUFFER_STATUS_WRONG_PACKET_ID:
+        ret = CoABufferStatusWrongPacketId;
+        break;
+    case ARV_BUFFER_STATUS_SIZE_MISMATCH:
+        ret = CoABufferStatusSizeMismatch;
+        break;
+    case ARV_BUFFER_STATUS_FILLING:
+        ret = CoABufferStatusFilling;
+        break;
+    case ARV_BUFFER_STATUS_ABORTED:
+        ret = CoABufferStatusAborted;
+        break;
     }
     return ret;
 }
-static NSInteger    CoABufferPayloadTypeFromArvPalyloadType(int type)
+static NSInteger CoABufferPayloadTypeFromArvPayloadType(int type)
 {
-    NSInteger   ret = CoABufferPayloadTypeUnknown;
-    switch(type) {
-        case ARV_BUFFER_PAYLOAD_TYPE_IMAGE:
-            ret = CoABufferPayloadTypeImage;                break;
-        case ARV_BUFFER_PAYLOAD_TYPE_RAWDATA:
-            ret = CoABufferPayloadTypeRawData;              break;
-        case ARV_BUFFER_PAYLOAD_TYPE_FILE:
-            ret = CoABufferPayloadTypeFile;                 break;
-        case ARV_BUFFER_PAYLOAD_TYPE_CHUNK_DATA:
-            ret = CoABufferPayloadTypeChunkData;            break;
-        case ARV_BUFFER_PAYLOAD_TYPE_EXTENDED_CHUNK_DATA:
-            ret = CoABufferPayloadTypeExtendedChunkData;    break;
-        case ARV_BUFFER_PAYLOAD_TYPE_JPEG:
-            ret = CoABufferPayloadTypeJPEG;                 break;
-        case ARV_BUFFER_PAYLOAD_TYPE_JPEG2000:
-            ret = CoABufferPayloadTypeJPEG2000;             break;
-        case ARV_BUFFER_PAYLOAD_TYPE_H264:
-            ret = CoABufferPayloadTypeH264;                 break;
-        case ARV_BUFFER_PAYLOAD_TYPE_MULTIZONE_IMAGE:
-            ret = CoABufferPayloadTypeMultiZoneImage;       break;
+    NSInteger ret = CoABufferPayloadTypeUnknown;
+    switch (type) {
+    case ARV_BUFFER_PAYLOAD_TYPE_IMAGE:
+        ret = CoABufferPayloadTypeImage;
+        break;
+    case ARV_BUFFER_PAYLOAD_TYPE_RAWDATA:
+        ret = CoABufferPayloadTypeRawData;
+        break;
+    case ARV_BUFFER_PAYLOAD_TYPE_FILE:
+        ret = CoABufferPayloadTypeFile;
+        break;
+    case ARV_BUFFER_PAYLOAD_TYPE_CHUNK_DATA:
+        ret = CoABufferPayloadTypeChunkData;
+        break;
+    case ARV_BUFFER_PAYLOAD_TYPE_EXTENDED_CHUNK_DATA:
+        ret = CoABufferPayloadTypeExtendedChunkData;
+        break;
+    case ARV_BUFFER_PAYLOAD_TYPE_JPEG:
+        ret = CoABufferPayloadTypeJPEG;
+        break;
+    case ARV_BUFFER_PAYLOAD_TYPE_JPEG2000:
+        ret = CoABufferPayloadTypeJPEG2000;
+        break;
+    case ARV_BUFFER_PAYLOAD_TYPE_H264:
+        ret = CoABufferPayloadTypeH264;
+        break;
+    case ARV_BUFFER_PAYLOAD_TYPE_MULTIZONE_IMAGE:
+        ret = CoABufferPayloadTypeMultiZoneImage;
+        break;
     }
     return ret;
 }

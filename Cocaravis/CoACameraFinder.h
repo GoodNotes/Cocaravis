@@ -20,23 +20,20 @@ NS_ASSUME_NONNULL_BEGIN
 //  interfaceId property is disabled because
 //  arv_get_interface_id() returns meaningless string for more than one camera on same interface @0.6.3
 
-@interface CoADeviceSignature : NSObject
-@property (readonly) NSString       *deviceId;
-@property (readonly) NSString       *physicalId;
-@property (readonly) NSString       *model;
-@property (readonly) NSString       *serialNumber;
-@property (readonly) NSString       *vendor;
-@property (readonly) NSString       *address;
-@property (readonly) NSString       *protocol;
+@interface                     CoADeviceSignature : NSObject
+@property (readonly) NSString *deviceId;
+@property (readonly) NSString *physicalId;
+@property (readonly) NSString *model;
+@property (readonly) NSString *serialNumber;
+@property (readonly) NSString *vendor;
+@property (readonly) NSString *address;
+@property (readonly) NSString *protocol;
 //@property (readonly) NSString       *interfaceId;
 @end
 
-
-
-@interface CoACameraFinder : NSObject
-@property (readonly) NSArray<NSString *>                *interfaceIdentifiers;
-@property (readonly) NSArray<CoADeviceSignature *>      *connectedDevices;
-
+@interface                                          CoACameraFinder : NSObject
+@property (readonly) NSArray<NSString *>           *interfaceIdentifiers;
+@property (readonly) NSArray<CoADeviceSignature *> *connectedDevices;
 
 + (CoACameraFinder *)sharedCameraFinder;
 

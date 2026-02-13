@@ -15,10 +15,10 @@
 
 NSString *CoADeviceControlLostNotification = @"CoADeviceControlLostNotification";
 
-static const char   *controlLostSignalName  = "control-lost";
-static void controlLostCallback(ArvGvDevice *gvDevice, void *data);
+static const char *controlLostSignalName = "control-lost";
+static void        controlLostCallback(ArvGvDevice *gvDevice, void *data);
 
-@interface CoADevice ()
+@interface                               CoADevice ()
 @property (readonly, weak) CoACamera    *camera;
 @property (readonly) ArvDevice          *arvDevice;
 @property (readonly) CoAFeatureCategory *featureCategory;
@@ -40,8 +40,12 @@ static void controlLostCallback(ArvGvDevice *gvDevice, void *data);
 
     _featureCategory = [[CoAFeatureCategory alloc] initWithDevice:self];
     _categorizedFeatures = _featureCategory.categorizedFeatures;
-    
-    gulong  handlerLost = g_signal_connect(self.arvDevice, controlLostSignalName, G_CALLBACK(controlLostCallback), (void *)CFBridgingRetain(self));
+
+    // TODO: review CFBridging lifetime — CFBridgingRetain passes self to the GObject callback,
+    // but CFBridgingRelease immediately below defeats the purpose. The callback uses __bridge
+    // to access self, which may be deallocated. Needs testing with hardware before changing.
+    gulong handlerLost = g_signal_connect(self.arvDevice, controlLostSignalName, G_CALLBACK(controlLostCallback),
+                                          (void *)CFBridgingRetain(self));
     if (handlerLost == 0)
         fprintf(stderr, "can not register connection lost handler\n");
 
@@ -55,7 +59,6 @@ static void controlLostCallback(ArvGvDevice *gvDevice, void *data);
     return [self.featureCategory featureByName:featureName];
 }
 
-
 - (ArvDevice *)arvDeviceObject
 {
     return self.arvDevice;
@@ -63,7 +66,7 @@ static void controlLostCallback(ArvGvDevice *gvDevice, void *data);
 
 - (void)controlLost
 {
-    NSNotification  *notification = [NSNotification notificationWithName:CoADeviceControlLostNotification object:self];
+    NSNotification *notification = [NSNotification notificationWithName:CoADeviceControlLostNotification object:self];
     [[NSNotificationCenter defaultCenter] postNotification:notification];
 }
 
@@ -71,6 +74,6 @@ static void controlLostCallback(ArvGvDevice *gvDevice, void *data);
 
 static void controlLostCallback(ArvGvDevice *gvDevice, void *data)
 {
-    CoADevice   *selfptr = (__bridge CoADevice *)data;
+    CoADevice *selfptr = (__bridge CoADevice *)data;
     [selfptr controlLost];
 }

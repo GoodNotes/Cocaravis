@@ -19,18 +19,16 @@ NS_ASSUME_NONNULL_BEGIN
 @class CoACamera;
 @class CoACameraFeature;
 
-//  notification below is issued when ArvDevice araises control-lost signal
+//  notification below is issued when ArvDevice raises control-lost signal
 extern NSString *CoADeviceControlLostNotification;
 
-@interface CoADevice : NSObject
-@property (readonly) NSString                       *deviceId;
-@property (readonly) NSDictionary                   *categorizedFeatures;
-
+@interface                         CoADevice : NSObject
+@property (readonly) NSString     *deviceId;
+@property (readonly) NSDictionary *categorizedFeatures;
 
 - (instancetype)initWithCamera:(CoACamera *)camera;
 
 - (CoACameraFeature *)featureByName:(NSString *)featureName;
-
 
 //  for CoAStream
 typedef struct _ArvDevice ArvDevice;

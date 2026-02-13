@@ -10,34 +10,31 @@
 #include <signal.h>
 #import "CoAGMainLoopWrapper.h"
 
-static CoAGMainLoopWrapper  *gMainLoop = nil;
+static CoAGMainLoopWrapper *gMainLoop = nil;
 
-@interface CoAGMainLoopWrapper ()
-@property (readonly) GMainLoop          *gMainLoop;
+@interface                      CoAGMainLoopWrapper ()
+@property (readonly) GMainLoop *gMainLoop;
 
 - (void)loopBody:(id)obj;
 
 @end
 
-
 @implementation CoAGMainLoopWrapper
 
-//  CoAGaimLoopWrapper object is a simple singleton
+//  CoAGMainLoopWrapper object is a thread-safe singleton
 
 + (CoAGMainLoopWrapper *)sharedMainLoopWrapper
 {
-    if (gMainLoop == nil) {
-        gMainLoop = [[CoAGMainLoopWrapper alloc] init];
-    }
-    return gMainLoop;
+    static CoAGMainLoopWrapper *instance = nil;
+    static dispatch_once_t      onceToken;
+    dispatch_once(&onceToken, ^{
+        instance = [[CoAGMainLoopWrapper alloc] init];
+    });
+    return instance;
 }
-
 
 - (instancetype)init
 {
-    if (gMainLoop != nil)
-        return gMainLoop;
-
     self = [super init];
     [NSThread detachNewThreadSelector:@selector(loopBody:) toTarget:self withObject:nil];
     return self;
@@ -54,6 +51,5 @@ static CoAGMainLoopWrapper  *gMainLoop = nil;
 {
     g_main_loop_quit(self.gMainLoop);
 }
-
 
 @end

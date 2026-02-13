@@ -12,12 +12,11 @@
 #import "CoADevice.h"
 #import "CoACameraFeature.h"
 
-static const char   *rootCategoryName       = "Root";
+static const char *rootCategoryName = "Root";
 
-
-@interface CoAFeatureCategory ()
-@property (readonly) CoADevice      *device;
-@property (readonly) NSDictionary   *featuresCache;
+@interface                         CoAFeatureCategory ()
+@property (readonly) CoADevice    *device;
+@property (readonly) NSDictionary *featuresCache;
 
 - (NSDictionary *)singleLevelCategory:(ArvGcCategory *)categoryNode fromGenICam:(ArvGc *)genicam;
 - (CoACameraFeature *)findFeatureByName:(NSString *)featureName from:(NSDictionary *)category;
@@ -40,11 +39,11 @@ static const char   *rootCategoryName       = "Root";
         ArvGc *gc = arv_device_get_genicam([self.device arvDeviceObject]);
         if (gc == NULL)
             return nil;
-        
-        ArvGcNode   *node = arv_gc_get_node(gc, rootCategoryName);
-        
+
+        ArvGcNode *node = arv_gc_get_node(gc, rootCategoryName);
+
         if (g_type_is_a(G_OBJECT_TYPE(node), ARV_TYPE_GC_CATEGORY)) {
-            //NSString    *catName = [NSString stringWithCString:rootCategoryName encoding:NSASCIIStringEncoding];
+            // NSString    *catName = [NSString stringWithCString:rootCategoryName encoding:NSASCIIStringEncoding];
             _featuresCache = [self singleLevelCategory:(ArvGcCategory *)node fromGenICam:gc];
         }
     }
@@ -53,19 +52,18 @@ static const char   *rootCategoryName       = "Root";
 
 - (NSDictionary *)singleLevelCategory:(ArvGcCategory *)categoryNode fromGenICam:(ArvGc *)genicam
 {
-    GSList  *clist = (GSList *)arv_gc_category_get_features(categoryNode);
-    guint   len = g_slist_length(clist);
+    GSList              *clist = (GSList *)arv_gc_category_get_features(categoryNode);
+    guint                len = g_slist_length(clist);
     NSMutableDictionary *tmp = [NSMutableDictionary dictionaryWithCapacity:len];
-    for (guint i = 0 ; i < len ; i ++) {
-        const char  *nm = g_slist_nth_data(clist, i);
-        ArvGcNode   *node = arv_gc_get_node(genicam, nm);
-        NSString *nodeName = [NSString stringWithUTF8String:nm];
+    for (guint i = 0; i < len; i++) {
+        const char *nm = g_slist_nth_data(clist, i);
+        ArvGcNode  *node = arv_gc_get_node(genicam, nm);
+        NSString   *nodeName = [NSString stringWithUTF8String:nm];
         if (g_type_is_a(G_OBJECT_TYPE(node), ARV_TYPE_GC_CATEGORY)) {
             NSDictionary *childCat = [self singleLevelCategory:(ArvGcCategory *)node fromGenICam:genicam];
             [tmp setObject:childCat forKey:nodeName];
-        }
-        else {
-            CoACameraFeature    *feature = [CoACameraFeature cameraFeatureWithDevice:self.device featureName:nodeName];
+        } else {
+            CoACameraFeature *feature = [CoACameraFeature cameraFeatureWithDevice:self.device featureName:nodeName];
             if (feature != nil) {
                 [tmp setObject:feature forKey:nodeName];
             }
@@ -81,19 +79,18 @@ static const char   *rootCategoryName       = "Root";
 
 - (CoACameraFeature *)findFeatureByName:(NSString *)featureName from:(NSDictionary *)category
 {
-    id  ret = [category objectForKey:featureName];
+    id ret = [category objectForKey:featureName];
     if (ret != nil) {
         if ([ret isKindOfClass:[CoACameraFeature class]])
             return (CoACameraFeature *)ret;
         else
             return nil;
-    }
-    else {
-        NSArray *allvals = [category allValues];
-        __block id  ret2 = nil;
-        [allvals enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+    } else {
+        NSArray   *allvals = [category allValues];
+        __block id ret2 = nil;
+        [allvals enumerateObjectsUsingBlock:^(id _Nonnull obj, NSUInteger idx, BOOL *_Nonnull stop) {
             if ([obj isKindOfClass:[NSDictionary class]]) {
-                CoACameraFeature  *retin = [self findFeatureByName:featureName from:obj];
+                CoACameraFeature *retin = [self findFeatureByName:featureName from:obj];
                 if (retin != nil) {
                     ret2 = retin;
                     *stop = YES;
@@ -104,6 +101,5 @@ static const char   *rootCategoryName       = "Root";
     }
     return nil;
 }
-
 
 @end

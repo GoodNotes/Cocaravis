@@ -49,6 +49,15 @@
 		1809B2D822E6DA70000BAFCA /* Cocaravis.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1898888D22E59F5B00EA73C8 /* Cocaravis.framework */; };
 		18A9653F22DFD591009DCD0D /* libusb-1.0.0.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 18A9653E22DFD591009DCD0D /* libusb-1.0.0.dylib */; };
 		18A9654022DFD59B009DCD0D /* libusb-1.0.0.dylib in CopyFiles */ = {isa = PBXBuildFile; fileRef = 18A9653E22DFD591009DCD0D /* libusb-1.0.0.dylib */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
+		AA01B2B122DDE00100CD9E99 /* CoAAcquisitionProperty.h in Headers */ = {isa = PBXBuildFile; fileRef = AA01B2A122DDE00100CD9E99 /* CoAAcquisitionProperty.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		AA01B2B222DDE00100CD9E99 /* CoAAcquisitionProperty.m in Sources */ = {isa = PBXBuildFile; fileRef = AA01B2A222DDE00100CD9E99 /* CoAAcquisitionProperty.m */; };
+		AA01B2B322DDE00100CD9E99 /* CoAEnumerateAcquisitionProperty.h in Headers */ = {isa = PBXBuildFile; fileRef = AA01B2A322DDE00100CD9E99 /* CoAEnumerateAcquisitionProperty.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		AA01B2B422DDE00100CD9E99 /* CoAEnumerateAcquisitionProperty.m in Sources */ = {isa = PBXBuildFile; fileRef = AA01B2A422DDE00100CD9E99 /* CoAEnumerateAcquisitionProperty.m */; };
+		AA01B2B522DDE00100CD9E99 /* CoAFloatAcquisitionProperty.h in Headers */ = {isa = PBXBuildFile; fileRef = AA01B2A522DDE00100CD9E99 /* CoAFloatAcquisitionProperty.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		AA01B2B622DDE00100CD9E99 /* CoAFloatAcquisitionProperty.m in Sources */ = {isa = PBXBuildFile; fileRef = AA01B2A622DDE00100CD9E99 /* CoAFloatAcquisitionProperty.m */; };
+		AA01B2B722DDE00100CD9E99 /* CoAIntegerAcquisitionProperty.h in Headers */ = {isa = PBXBuildFile; fileRef = AA01B2A722DDE00100CD9E99 /* CoAIntegerAcquisitionProperty.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		AA01B2B822DDE00100CD9E99 /* CoAIntegerAcquisitionProperty.m in Sources */ = {isa = PBXBuildFile; fileRef = AA01B2A822DDE00100CD9E99 /* CoAIntegerAcquisitionProperty.m */; };
+		AA01B2B922DDE00100CD9E99 /* CoAAcquisitionProperty+Internal.h in Headers */ = {isa = PBXBuildFile; fileRef = AA01B2A922DDE00100CD9E99 /* CoAAcquisitionProperty+Internal.h */; settings = {ATTRIBUTES = (Project, ); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -128,6 +137,15 @@
 		1809B2D622E6DA58000BAFCA /* Cocaravis.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocaravis.framework; path = binary/Cocaravis.framework; sourceTree = "<group>"; };
 		1898888D22E59F5B00EA73C8 /* Cocaravis.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocaravis.framework; path = binary/Cocaravis.framework; sourceTree = "<group>"; };
 		18A9653E22DFD591009DCD0D /* libusb-1.0.0.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = "libusb-1.0.0.dylib"; path = /opt/homebrew/lib/libusb-1.0.0.dylib; sourceTree = "<absolute>"; };
+		AA01B2A122DDE00100CD9E99 /* CoAAcquisitionProperty.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CoAAcquisitionProperty.h; sourceTree = "<group>"; };
+		AA01B2A222DDE00100CD9E99 /* CoAAcquisitionProperty.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CoAAcquisitionProperty.m; sourceTree = "<group>"; };
+		AA01B2A322DDE00100CD9E99 /* CoAEnumerateAcquisitionProperty.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CoAEnumerateAcquisitionProperty.h; sourceTree = "<group>"; };
+		AA01B2A422DDE00100CD9E99 /* CoAEnumerateAcquisitionProperty.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CoAEnumerateAcquisitionProperty.m; sourceTree = "<group>"; };
+		AA01B2A522DDE00100CD9E99 /* CoAFloatAcquisitionProperty.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CoAFloatAcquisitionProperty.h; sourceTree = "<group>"; };
+		AA01B2A622DDE00100CD9E99 /* CoAFloatAcquisitionProperty.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CoAFloatAcquisitionProperty.m; sourceTree = "<group>"; };
+		AA01B2A722DDE00100CD9E99 /* CoAIntegerAcquisitionProperty.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CoAIntegerAcquisitionProperty.h; sourceTree = "<group>"; };
+		AA01B2A822DDE00100CD9E99 /* CoAIntegerAcquisitionProperty.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CoAIntegerAcquisitionProperty.m; sourceTree = "<group>"; };
+		AA01B2A922DDE00100CD9E99 /* CoAAcquisitionProperty+Internal.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "CoAAcquisitionProperty+Internal.h"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -201,6 +219,15 @@
 				1802B2D322DDBBE300CD9E99 /* CoAGMainLoopWrapper.m */,
 				1802B2CB22DDBBE200CD9E99 /* CoAPixelFormat.h */,
 				1802B2DC22DDBBE400CD9E99 /* CoAPixelFormat.m */,
+				AA01B2A122DDE00100CD9E99 /* CoAAcquisitionProperty.h */,
+				AA01B2A922DDE00100CD9E99 /* CoAAcquisitionProperty+Internal.h */,
+				AA01B2A222DDE00100CD9E99 /* CoAAcquisitionProperty.m */,
+				AA01B2A322DDE00100CD9E99 /* CoAEnumerateAcquisitionProperty.h */,
+				AA01B2A422DDE00100CD9E99 /* CoAEnumerateAcquisitionProperty.m */,
+				AA01B2A522DDE00100CD9E99 /* CoAFloatAcquisitionProperty.h */,
+				AA01B2A622DDE00100CD9E99 /* CoAFloatAcquisitionProperty.m */,
+				AA01B2A722DDE00100CD9E99 /* CoAIntegerAcquisitionProperty.h */,
+				AA01B2A822DDE00100CD9E99 /* CoAIntegerAcquisitionProperty.m */,
 				1802B2AC22DDB9EA00CD9E99 /* Info.plist */,
 			);
 			path = Cocaravis;
@@ -257,6 +284,11 @@
 				1802B2E722DDBBE400CD9E99 /* CoABitmapImageRep.h in Headers */,
 				1802B2F322DDBBE400CD9E99 /* CoACameraFinder.h in Headers */,
 				1802B2AD22DDB9EA00CD9E99 /* Cocaravis.h in Headers */,
+				AA01B2B122DDE00100CD9E99 /* CoAAcquisitionProperty.h in Headers */,
+				AA01B2B322DDE00100CD9E99 /* CoAEnumerateAcquisitionProperty.h in Headers */,
+				AA01B2B522DDE00100CD9E99 /* CoAFloatAcquisitionProperty.h in Headers */,
+				AA01B2B722DDE00100CD9E99 /* CoAIntegerAcquisitionProperty.h in Headers */,
+				AA01B2B922DDE00100CD9E99 /* CoAAcquisitionProperty+Internal.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -397,6 +429,10 @@
 				1802B2F122DDBBE400CD9E99 /* CoABuffer.m in Sources */,
 				1802B2E222DDBBE400CD9E99 /* CoACameraFeature.m in Sources */,
 				1802B2E322DDBBE400CD9E99 /* CoABitmapImageRep.m in Sources */,
+				AA01B2B222DDE00100CD9E99 /* CoAAcquisitionProperty.m in Sources */,
+				AA01B2B422DDE00100CD9E99 /* CoAEnumerateAcquisitionProperty.m in Sources */,
+				AA01B2B622DDE00100CD9E99 /* CoAFloatAcquisitionProperty.m in Sources */,
+				AA01B2B822DDE00100CD9E99 /* CoAIntegerAcquisitionProperty.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

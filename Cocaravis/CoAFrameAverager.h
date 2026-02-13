@@ -14,10 +14,9 @@
     - (void)attachFrameAverager;
     method  of CoAStream and
     frameAverager property.
- 
-    CoAFrameAverager object accumulates over number of 'averagingCount' frames by sliding window method for temporal direction
-    and no degradation of resolution for spatial directions.
-    'lastImageBuffer' property holds averaged frame.
+
+    CoAFrameAverager object accumulates over number of 'averagingCount' frames by sliding window method for temporal
+   direction and no degradation of resolution for spatial directions. 'lastImageBuffer' property holds averaged frame.
     'lastFrameMaximum' property holds maximum pixel value of averaged frame
     'flushAverage' method restarts accumulation.
 
@@ -45,16 +44,14 @@ typedef NS_ENUM(NSUInteger, dgvNormalizationStyles) {
 @class CoALineSpreadFunction;
 @protocol CoALSFReceiverProtocol;
 
-
 @interface CoAFrameAverager : NSObject
 
+@property (readonly) NSUInteger      averagingCount;
+@property (readonly) CoAImageBuffer *lastImageBuffer;
 
-@property (readonly) NSUInteger                 averagingCount;
-@property (readonly) CoAImageBuffer             *lastImageBuffer;
-
-@property (readonly) float                      lastFrameMaximum;
-@property (readonly) BOOL                       opticalBlackSubtracted;
-@property (readonly) NSUInteger                 remainedFrameCountForOpticalBlack;
+@property (readonly) float      lastFrameMaximum;
+@property (readonly) BOOL       opticalBlackSubtracted;
+@property (readonly) NSUInteger remainedFrameCountForOpticalBlack;
 
 - (void)flushAverage;
 - (void)setNewAveragingCount:(NSUInteger)averagingCount;
@@ -63,7 +60,6 @@ typedef NS_ENUM(NSUInteger, dgvNormalizationStyles) {
 - (CoAImageBuffer *)averagedFrame;
 
 - (void)startToTakeOpticalBlack;
-
 
 @end
 

@@ -16,23 +16,21 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-
 //  according to aravis ArvBufferStatus.
 typedef NS_ENUM(NSInteger, CoABufferStatus) {
     CoABufferStatusUnknown,
-    CoABufferStatusSuccsess,
+    CoABufferStatusSuccess,
     CoABufferStatusCleared,
     CoABufferStatusTimeOut,
     CoABufferStatusMissingPackets,
     CoABufferStatusWrongPacketId,
-    CoABufferStatusSizeMissMatch,
+    CoABufferStatusSizeMismatch,
     CoABufferStatusFilling,
     CoABufferStatusAborted
 };
 
-
 //  according to aravis payload types.
-//  not all types are supported in curent version.
+//  not all types are supported in current version.
 typedef NS_ENUM(NSInteger, CoABufferPayloadType) {
     CoABufferPayloadTypeUnknown,
     CoABufferPayloadTypeImage,
@@ -46,12 +44,11 @@ typedef NS_ENUM(NSInteger, CoABufferPayloadType) {
     CoABufferPayloadTypeMultiZoneImage
 };
 
-
-@interface CoABuffer : NSObject
-@property (readonly) CoABufferStatus        status;
-@property (readonly) CoABufferPayloadType   payloadType;
-@property (readonly) NSUInteger             timeStamp;
-@property (readonly) NSUInteger             frameId;
+@interface                                CoABuffer : NSObject
+@property (readonly) CoABufferStatus      status;
+@property (readonly) CoABufferPayloadType payloadType;
+@property (readonly) NSUInteger           timeStamp;
+@property (readonly) NSUInteger           frameId;
 
 typedef struct _ArvBuffer ArvBuffer;
 
@@ -62,18 +59,16 @@ typedef struct _ArvBuffer ArvBuffer;
 
 @end
 
+#pragma mark                 CoAImageBuffer for image payload type
+@interface                   CoAImageBuffer : CoABuffer
+@property (readonly) UInt32  pixelFormat;
+@property (readonly) NSSize  imageSize;
+@property (readonly) NSData *imageData; //  copying buffer content
 
-#pragma mark    CoAImageBuffer for image payload type
-@interface CoAImageBuffer : CoABuffer
-@property (readonly) UInt32                 pixelFormat;
-@property (readonly) NSSize                 imageSize;
-@property (readonly) NSData                 *imageData; //  copying buffer content
-
-@property (readonly) UInt8                  *rawImageBytes;
+@property (readonly) UInt8 *rawImageBytes;
 //
 - (id)initWithImageBuffer:(CoAImageBuffer *)imageBuffer withFrameDataNoCopy:(NSData *)frameData;
 
 @end
-
 
 NS_ASSUME_NONNULL_END

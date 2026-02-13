@@ -8,86 +8,18 @@
 
 #import <Foundation/Foundation.h>
 #import "CoACameraFinder.h"
+#import "CoAAcquisitionProperty.h"
+#import "CoAEnumerateAcquisitionProperty.h"
+#import "CoAFloatAcquisitionProperty.h"
+#import "CoAIntegerAcquisitionProperty.h"
 
 /*
     CoACamera class, wrapper of ArvCamera
-    to init CoACamera object one device signature shoulde be wspecified
+    to init CoACamera object one device signature should be specified
     even if only one camera is connected.
  */
 
-
 NS_ASSUME_NONNULL_BEGIN
-
-
-//  camera property settings
-typedef NS_ENUM(NSInteger, autoValueSetting) {
-    autoOff,
-    autoOnce,
-    autoContinuous,
-    autoNotImplemented
-};
-
-@class CoACamera;
-
-
-//  CoAAcquisitionProperty classes represent directly each funtions of ArvCamera control.
-//  reffer ArvCamera.h
-@interface CoAAcquisitionProperty : NSObject
-@property (readonly, weak) CoACamera    *camera;
-@property (readonly) NSString           *name;
-@property (readonly) NSString           *unit;
-@property (readwrite) autoValueSetting  valueAuto;
-
-+ (NSString *)propertyNameString;
-
-@end
-
-@interface CoAEnumarateAcquisitionProperty : CoAAcquisitionProperty
-@property (readonly) NSArray            *availableValues;
-@property (readwrite) NSString          *currentValue;
-@end
-@interface CoATriggerSourceAcquisitionProperty : CoAEnumarateAcquisitionProperty
-@end
-@interface CoATriggerModeAcquisitionProperty : CoAEnumarateAcquisitionProperty
-@end
-
-@interface CoAFloatAcquisitionProperty : CoAAcquisitionProperty
-@property (readonly) double             min;
-@property (readonly) double             max;
-@property (readwrite) double            currentValue;
-@end
-
-@interface CoAIntegerAcquisitionProperty : CoAAcquisitionProperty
-@property (readonly) NSInteger          min;
-@property (readonly) NSInteger          max;
-@property (readwrite) NSInteger         currentValue;
-@end
-
-@interface CoA2DIntegerAcquisitionProperty : CoAIntegerAcquisitionProperty
-@property (readonly) NSInteger          ymin;
-@property (readonly) NSInteger          ymax;
-@property (readwrite) NSInteger         ycurrentValue;
-@end
-
-
-#pragma mark    frame rate property
-@interface CoAFrameRateAcquisitionProperty : CoAFloatAcquisitionProperty
-@end
-
-#pragma mark    exposure time property
-@interface CoAExposureTimeAcquisitionProperty : CoAFloatAcquisitionProperty
-@end
-
-#pragma mark    gain property
-@interface CoAGainAcquisitionProperty : CoAFloatAcquisitionProperty
-@end
-
-#pragma mark    binning property
-@interface CoABinnigAcquisitionProperty : CoA2DIntegerAcquisitionProperty
-@end
-
-
-
 
 @class CoAStream;
 @class CoADevice;
@@ -101,28 +33,26 @@ typedef NS_ENUM(NSInteger, autoValueSetting) {
 //  Check default size of regionOfInterest for your camera.
 //  by decafish @2019/6/15
 
-@interface CoACamera : NSObject
-@property (readonly) CoADeviceSignature                 *signature;
-@property (readonly) NSSize                             sensorPixelSize;
-@property (readwrite) NSRect                            regionOfInterest;
-@property (readonly) NSArray <NSString *>               *availablePixelFormats;
-@property (readwrite) NSString                          *pixelFormat;
-@property (readonly) NSArray <NSString *>               *availableAcquisitioModes;
-@property (readwrite) NSString                          *acquisitionMode;
+@interface                                CoACamera : NSObject
+@property (readonly) CoADeviceSignature  *signature;
+@property (readonly) NSSize               sensorPixelSize;
+@property (readwrite) NSRect              regionOfInterest;
+@property (readonly) NSArray<NSString *> *availablePixelFormats;
+@property (readwrite) NSString           *pixelFormat;
+@property (readonly) NSArray<NSString *> *availableAcquisitionModes;
+@property (readwrite) NSString           *acquisitionMode;
 
-@property (readonly) NSArray <NSString *>               *availablePropertyNames;
-@property (readonly) NSArray <CoAAcquisitionProperty *> *acquisitionProperties;
+@property (readonly) NSArray<NSString *>               *availablePropertyNames;
+@property (readonly) NSArray<CoAAcquisitionProperty *> *acquisitionProperties;
 
-+ (NSArray <NSString *> *)aquisitionPropertyNames;
++ (NSArray<NSString *> *)acquisitionPropertyNames;
 
-
-- (instancetype)initWithDeviceSignature:(CoADeviceSignature * __nonnull)signature;
+- (instancetype)initWithDeviceSignature:(CoADeviceSignature *__nonnull)signature;
 
 - (CoADevice *)cameraDevice;
 
 - (CoAAcquisitionProperty *)propertyByName:(NSString *)name;
 - (Class)classOfPropertyByName:(NSString *)name;
-
 
 //  to create CoAStream object, the method below should be used.
 //  stream object should be created after setting regionOfIntererst of the camera object
@@ -134,27 +64,23 @@ typedef NS_ENUM(NSInteger, autoValueSetting) {
 //  4.  start acquisition
 - (CoAStream *)createCoAStreamWithPooledBufferCount:(NSUInteger)count;
 
-- (void)startAquisition;
-- (void)stopAquisition;
-- (void)abortAquisition;
+- (void)startAcquisition;
+- (void)stopAcquisition;
+- (void)abortAcquisition;
 
-
-//  reffer to CoAPixelFormat.h for the integer argument.
+//  refer to CoAPixelFormat.h for the integer argument.
 //  if nil, the camera can not support the format
 - (NSString *)pixelFormatStringFromEnumValue:(NSInteger)value;
 
-
-
-
 //  for CoAStream, users for CoACamera object need not to care with them.
-typedef struct _ArvStream       ArvStream;
-typedef struct _ArvDevice       ArvDevice;
+typedef struct _ArvStream ArvStream;
+typedef struct _ArvDevice ArvDevice;
 
 - (NSUInteger)currentPayloadSize;
 - (ArvStream *)createArvStream;
 
 //  for CoAFeatureCategory
-typedef struct _ArvCamera       ArvCamera;
+typedef struct _ArvCamera ArvCamera;
 - (ArvCamera *)arvCameraObject;
 
 @end

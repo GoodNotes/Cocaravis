@@ -10,14 +10,11 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-extern NSString *newBufferSignalName;
-extern NSString *controlLostSignalName;
-
 @class CoABuffer;
 @class CoAStream;
 
 //  this class creates one thread holding gMainLoop
-//  to avoide g_main_loop_run() to block.
+//  to avoid g_main_loop_run() to block.
 //  Is there any other simple solution?
 
 @interface CoAGMainLoopWrapper : NSObject

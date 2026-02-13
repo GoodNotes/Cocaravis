@@ -14,13 +14,15 @@ FOUNDATION_EXPORT double CocaravisVersionNumber;
 //! Project version string for Cocaravis.
 FOUNDATION_EXPORT const unsigned char CocaravisVersionString[];
 
-
 #import <Cocaravis/CoACameraFinder.h>
+#import <Cocaravis/CoAAcquisitionProperty.h>
+#import <Cocaravis/CoAEnumerateAcquisitionProperty.h>
+#import <Cocaravis/CoAFloatAcquisitionProperty.h>
+#import <Cocaravis/CoAIntegerAcquisitionProperty.h>
 #import <Cocaravis/CoACamera.h>
 #import <Cocaravis/CoAStream.h>
 #import <Cocaravis/CoABuffer.h>
 #import <Cocaravis/CoAPixelFormat.h>
 #import <Cocaravis/CoACameraFeature.h>
 #import <Cocaravis/CoADevice.h>
-#import <Cocaravis/CoACameraFeature.h>
 #import <Cocaravis/CoABitmapImageRep.h>

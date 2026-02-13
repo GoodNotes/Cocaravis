@@ -9,22 +9,20 @@
 #import <Foundation/Foundation.h>
 
 /*
-    CoAFeatureCategory class classifies camera features
-    to groups of features according to gen<i>Cam category nodes
-    If Root category of Gen<i>Cam description is flat,
-    the property categorizedFeatures returns dictionary with
-    feature name for key and CoACameraFeature object for value.
-    If Root category is nested, categorizedFeatures returns nested dictionaries.
+    CoAFeatureCategory — classifies camera features into groups
+    according to GenICam category nodes.
+    If the Root category is flat, categorizedFeatures returns a dictionary
+    with feature name keys and CoACameraFeature object values.
+    If the Root category is nested, categorizedFeatures returns nested dictionaries.
  */
-
 
 NS_ASSUME_NONNULL_BEGIN
 
 @class CoADevice;
 @class CoACameraFeature;
 
-@interface CoAFeatureCategory : NSObject
-@property (readonly) NSDictionary   *categorizedFeatures;
+@interface                         CoAFeatureCategory : NSObject
+@property (readonly) NSDictionary *categorizedFeatures;
 
 - (instancetype)initWithDevice:(CoADevice *)device;
 
