@@ -90,7 +90,7 @@ static void newBufferCallback(ArvStream *stream, void *data);
                                          self.underrunDifference = underrun - self.underrunCount;
                                          self.underrunCount = underrun;
                                          if (underrun > 0)
-                                             NSLog(@"underrun = %ld", underrun);
+                                             NSLog(@"underrun = %llu", (unsigned long long)underrun);
                                          if (self.receiver != nil) {
                                              if ([self.receiver respondsToSelector:@selector(stream:
                                                                                        detectTooManyUnderrunCount:)] &&

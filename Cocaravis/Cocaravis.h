@@ -26,3 +26,4 @@ FOUNDATION_EXPORT const unsigned char CocaravisVersionString[];
 #import <Cocaravis/CoACameraFeature.h>
 #import <Cocaravis/CoADevice.h>
 #import <Cocaravis/CoABitmapImageRep.h>
+#import <Cocaravis/CoAFeatureCategory.h>
